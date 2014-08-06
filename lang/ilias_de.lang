@@ -1,0 +1,29 @@
+<!-- language file start -->
+msg_title#:#Titel
+msg_type#:#Typ
+msg_type_during_event#:#Typ währen Event
+msg_type_1#:#Info
+msg_type_2#:#Warnung
+msg_type_3#:#Wichtig
+msg_event_start#:#Start Event
+msg_event_end#:#Event Ende
+msg_display_start#:#Anzeige Start
+msg_display_end#:#Anzeige Ende
+msg_permanent#:#Anzeige
+msg_permanent_no#:#Temporär anzeigen
+msg_permanent_yes#:#Permanent anzeigen
+msg_prevent_login#:#Login verhindern
+msg_additional_classes#:#Weitere CSS-Klassen
+common_actions#:#Aktionen
+common_add_msg#:#Nachricht hinzufügen
+msg_table_title#:#Nachrichten
+_#:#
+msg_body#:#Text
+msg_event_date#:#Zeitpunkt Event
+msg_display_date#:#Dauer Anzeige
+msg_form_button_save#:#Speichern
+msg_form_button_update#:#Speichern
+msg_form_button_cancel#:#Abbrechen
+msg_form_button_delete#:#Löschen
+msg_form_title#:#Nachricht erfassen
+msg_success#:#Angewendet
