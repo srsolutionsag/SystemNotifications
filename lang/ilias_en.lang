@@ -1,0 +1,29 @@
+<!-- language file start -->
+msg_title#:#Title
+msg_type#:#Type
+msg_type_during_event#:#Type during Event
+msg_type_1#:#Info
+msg_type_2#:#Warning
+msg_type_3#:#Important
+msg_event_start#:#Event start
+msg_event_end#:#Event end
+msg_display_start#:#Display start
+msg_display_end#:#Display end
+msg_permanent#:#Display
+msg_permanent_no#:#Show temporary
+msg_permanent_yes#:#Show permanent
+msg_prevent_login#:#Prevent Login
+msg_additional_classes#:#Additional CSS-Classes
+common_actions#:#Actions
+common_add_msg#:#Add message
+msg_table_title#:#Messages
+_#:#
+msg_body#:#Body
+msg_event_date#:#Event date
+msg_display_date#:#Duration display
+msg_form_button_save#:#Save
+msg_form_button_update#:#Update
+msg_form_button_cancel#:#Cancel
+msg_form_button_delete#:#Delete
+msg_form_title#:#Compose message
+msg_success#:#Success
