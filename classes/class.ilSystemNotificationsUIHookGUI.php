@@ -3,7 +3,7 @@
 /* Copyright (c) 1998-2010 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageRecord.php');
 
 /**
  * Class ilSystemNotificationsUIHookGUI
@@ -99,10 +99,10 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 */
 		$notifications = new ilTemplate('tpl.notification.html', true, true, $this->pl->getDirectory());
 		/**
-		 * @var $notMessage notMessage
+		 * @var $notMessage MessageRecord
 		 */
 		$show = true;
-		foreach (notMessage::get() as $notMessage) {
+		foreach (notMessageRecord::get() as $notMessage) {
 			if (! $notMessage->isVisible()) {
 				continue;
 			}
@@ -119,7 +119,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			$notifications->parseCurrentBlock();
 		}
 
-		if (! $notMessage->isUserAllowed($ilUser->getId())) {
+		if ($notMessage && ! $notMessage->isUserAllowed($ilUser->getId())) {
 			$show = false;
 		}
 

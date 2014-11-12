@@ -2,12 +2,12 @@
 require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
 
 /**
- * Class notMessage
+ * Class MessageRecord
  *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 1.0.0
  */
-class notMessage extends ActiveRecord {
+class notMessageRecord extends ActiveRecord {
 
 	const POS_TOP = 1;
 	const POS_RIGHT = 2;
@@ -262,14 +262,6 @@ class notMessage extends ActiveRecord {
 	 */
 	public function wakeUp($field_name, $field_value) {
 		switch ($field_name) {
-			case 'event_start':
-			case 'event_end':
-			case 'display_end':
-			case 'display_start':
-			case 'create_date':
-			case 'last_update':
-				return strtotime($field_value);
-				break;
 			case 'allowed_users':
 				return json_decode($field_value, true);
 				break;
@@ -284,14 +276,6 @@ class notMessage extends ActiveRecord {
 	 */
 	public function sleep($field_name) {
 		switch ($field_name) {
-			case 'event_start':
-			case 'event_end':
-			case 'display_end':
-			case 'display_start':
-			case 'create_date':
-			case 'last_update':
-				return date(DATE_ISO8601, $this->{$field_name});
-				break;
 			case 'allowed_users':
 				return json_encode($this->allowed_users);
 				break;
