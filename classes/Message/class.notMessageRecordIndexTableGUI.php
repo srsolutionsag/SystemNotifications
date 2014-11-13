@@ -20,47 +20,46 @@ class notMessageRecordIndexTableGUI extends arIndexTableGUI {
         $field->setHasFilter(true);
         $field->setPosition(0);
 
+        $field = $this->getField("type");
+        $field->setTxt("msg_type");
+        $field->setVisibleDefault(true);
+        $field->setSortable(true);
+        $field->setHasFilter(false);
+        $field->setPosition(10);
+
+        $field = $this->getField("type_during_event");
+        $field->setTxt("msg_type_during_event");
+        $field->setVisibleDefault(true);
+        $field->setSortable(true);
+        $field->setHasFilter(false);
+        $field->setPosition(20);
+
         $field = $this->getField("event_start");
         $field->setTxt("msg_event_start");
         $field->setVisibleDefault(true);
         $field->setSortable(true);
         $field->setHasFilter(true);
-        $field->setPosition(10);
+        $field->setPosition(30);
 
         $field = $this->getField("event_end");
         $field->setTxt("msg_event_end");
         $field->setVisibleDefault(false);
         $field->setSortable(true);
         $field->setHasFilter(true);
-        $field->setPosition(20);
+        $field->setPosition(40);
 
         $field = $this->getField("display_start");
         $field->setTxt("msg_display_start");
         $field->setVisibleDefault(false);
         $field->setSortable(true);
         $field->setHasFilter(true);
-        $field->setPosition(30);
+        $field->setPosition(50);
 
         $field = $this->getField("display_end");
         $field->setTxt("msg_display_end");
         $field->setVisibleDefault(false);
         $field->setSortable(true);
         $field->setHasFilter(true);
-        $field->setPosition(40);
-
-        $field = $this->getField("type");
-        $field->setTxt("msg_type");
-        $field->setVisibleDefault(false);
-        $field->setSortable(true);
-        $field->setHasFilter(false);
-        $field->setPosition(50);
-
-        $field = $this->getField("type_during_event");
-        $field->setTxt("msg_type_during_event");
-        $field->setVisible(true);
-        $field->setVisibleDefault(false);
-        $field->setSortable(true);
-        $field->setHasFilter(false);
         $field->setPosition(60);
     }
 

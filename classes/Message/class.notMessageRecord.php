@@ -283,22 +283,6 @@ class notMessageRecord extends ActiveRecord {
 	}
 
 
-	public function create() {
-		global $ilUser;
-		$this->setCreateDate(time());
-		$this->setCreatedBy($ilUser->getId());
-		parent::create();
-	}
-
-
-	public function update() {
-		global $ilUser;
-		$this->setLastUpdate(time());
-		$this->setLastUpdateBy($ilUser->getId());
-		parent::update();
-	}
-
-
 	/**
 	 * @param string $body
 	 */
