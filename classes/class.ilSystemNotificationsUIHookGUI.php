@@ -98,12 +98,12 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 * @var $ilUser ilObjUser
 		 */
 		$notifications = new ilTemplate('tpl.notification.html', true, true, $this->pl->getDirectory());
-		/**
-		 * @var $notMessage MessageRecord
-		 */
 		$show = true;
 		foreach (notMessageRecord::get() as $notMessage) {
-			if (! $notMessage->isVisible()) {
+            /**
+             * @var notMessageRecord $notMessage
+             */
+            if (! $notMessage->isVisible()) {
 				continue;
 			}
 

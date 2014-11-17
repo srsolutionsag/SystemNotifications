@@ -28,7 +28,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
     function performCommand($cmd)
     {
         global $ilCtrl;
-
+        $this->getPluginObject()->updateLanguageFiles();
         $this->ctrl = $ilCtrl;
 
         if($cmd == "configure")

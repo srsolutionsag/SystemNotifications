@@ -41,7 +41,9 @@ class notMessageRecord extends ActiveRecord {
 	 * @return string
 	 */
 	public function getFullTimeFormated() {
-		return date(self::DATE_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_FORMAT, $this->getEventEnd());
+        $start_date = new ilDateTime($this->getEventStart(),IL_CAL_DATETIME);
+        $end_date =  new ilDateTime($this->getEventEnd(),IL_CAL_DATETIME);
+		return date(self::DATE_FORMAT, $start_date->getUnixTime()) . ' - ' . date(self::DATE_FORMAT, $end_date->getUnixTime());
 	}
 
 
@@ -68,12 +70,10 @@ class notMessageRecord extends ActiveRecord {
 		if ($this->getPermanent()) {
 			return true;
 		}
-		$hasEventStarted = $this->hasEventStarted();
-		$hasDisplayStarted = $this->hasDisplayStarted();
-		$hasEventEnded = ! $this->hasEventEnded();
-		$hasDisplayEnded = ! $this->hasDisplayEnded();
 
-		return ($hasEventStarted OR $hasDisplayStarted) AND ($hasEventEnded OR $hasDisplayEnded);
+        $started = ($this->hasEventStarted() OR $this->hasDisplayStarted());
+        $not_ended = (!$this->hasEventEnded() OR !$this->hasDisplayEnded());
+		return $started AND $not_ended;
 	}
 
 
@@ -85,7 +85,7 @@ class notMessageRecord extends ActiveRecord {
 	public function isUserAllowed($usr_id) {
 		if ($this->getPreventLogin()) {
 			if ($this->isDuringEvent()) {
-				if (! in_array($usr_id, $this->getAllowedUsers())) {
+				if (! in_array($usr_id, explode(",",$this->getAllowedUsers()))) {
 					return false;
 				}
 			}
@@ -213,7 +213,7 @@ class notMessageRecord extends ActiveRecord {
 	 * @con_fieldtype  text
 	 * @con_length     256
 	 */
-	protected $allowed_users = array( 6, 0 );
+	protected $allowed_users = "";
 	/**
 	 * @var int
 	 *
@@ -252,35 +252,6 @@ class notMessageRecord extends ActiveRecord {
 	 * @con_length     8
 	 */
 	protected $last_update_by = NULL;
-
-
-	/**
-	 * @param $field_name
-	 * @param $field_value
-	 *
-	 * @return int|mixed
-	 */
-	public function wakeUp($field_name, $field_value) {
-		switch ($field_name) {
-			case 'allowed_users':
-				return json_decode($field_value, true);
-				break;
-		}
-	}
-
-
-	/**
-	 * @param $field_name
-	 *
-	 * @return bool|mixed|string
-	 */
-	public function sleep($field_name) {
-		switch ($field_name) {
-			case 'allowed_users':
-				return json_encode($this->allowed_users);
-				break;
-		}
-	}
 
 
 	/**
@@ -447,7 +418,8 @@ class notMessageRecord extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasEventStarted() {
-		return time() > $this->getEventStart();
+        $datetime = new ilDateTime($this->getEventStart(),IL_CAL_DATETIME);
+		return time() > $datetime->getUnixTime();
 	}
 
 
@@ -455,7 +427,8 @@ class notMessageRecord extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasDisplayStarted() {
-		return time() > $this->getDisplayStart();
+        $datetime =new ilDateTime($this->getDisplayStart(),IL_CAL_DATETIME);
+		return time() > $datetime->getUnixTime();
 	}
 
 
@@ -463,7 +436,8 @@ class notMessageRecord extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasEventEnded() {
-		return time() > $this->getEventEnd();
+        $datetime =new ilDateTime($this->getEventEnd(),IL_CAL_DATETIME);
+		return time() > $datetime->getUnixTime();
 	}
 
 
@@ -471,7 +445,8 @@ class notMessageRecord extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasDisplayEnded() {
-		return time() > $this->getDisplayEnd();
+        $datetime = new ilDateTime($this->getDisplayEnd(),IL_CAL_DATETIME);
+		return time() > $datetime->getUnixTime();
 	}
 
 

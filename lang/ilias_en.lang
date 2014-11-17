@@ -14,13 +14,27 @@ msg_permanent_no#:#Show temporary
 msg_permanent_yes#:#Show permanent
 msg_prevent_login#:#Prevent Login
 msg_additional_classes#:#Additional CSS-Classes
-common_actions#:#Actions
-common_add_msg#:#Add message
-msg_table_title#:#Messages
 _#:#
+common_actions#:#Actions
+msg_add_record#:#Add message
+msg_create_message#:#Add Message
+msg_edit_message#:#Edit Message
+msg_record_created#:#Message added
+msg_records_deleted#:#The Messages have been successfully deleted.
+msg_record_deleted#:#The Message has been sucessfully deleted.
+msg_delete_records_confirmation#:#Are you sure to delete those messages?
+msg_delete_record_confirmation#:#Are you sure to delete this message?
+_#:#
+msg_table_title#:#Messages
+msg_allowed_users#:#Allowed Users
 msg_body#:#Body
+msg_create_date#:#Creation Date
+msg_created_by#:#Created by
+msg_last_update#:#Last udpate
+msg_last_update_by#:#Last update by
 msg_event_date#:#Event date
 msg_display_date#:#Duration display
+msg_delete#:#Delete Messages
 msg_form_button_save#:#Save
 msg_form_button_update#:#Update
 msg_form_button_cancel#:#Cancel

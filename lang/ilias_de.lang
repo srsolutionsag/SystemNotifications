@@ -14,13 +14,27 @@ msg_permanent_no#:#Temporär anzeigen
 msg_permanent_yes#:#Permanent anzeigen
 msg_prevent_login#:#Login verhindern
 msg_additional_classes#:#Weitere CSS-Klassen
-common_actions#:#Aktionen
-common_add_msg#:#Nachricht hinzufügen
-msg_table_title#:#Nachrichten
 _#:#
+common_actions#:#Aktionen
+msg_add_record#:#Nachricht hinzufügen
+msg_create_message#:#Nachricht hinzugefügen
+msg_edit_message#:#Nachricht editieren
+msg_record_created#:#Nachricht hinzugefügt
+msg_records_deleted#:#Die Nachrichten wurden erfolgreich gelöscht
+msg_record_deleted#:#Die Nachricht wurde erfolgreich gelöscht
+msg_delete_records_confirmation#:#Möchten Sie die Nachrichten wirklich löschen?
+msg_delete_record_confirmation#:#Möchten Sie die Nachricht wirklich löschen?
+_#:#
+msg_table_title#:#Nachrichten
+msg_allowed_users#:#Berechtigte Benutzer
 msg_body#:#Text
+msg_create_date#:#Erstellungsdatum
+msg_created_by#:#Erstellt von
+msg_last_update#:#Letzte Änderung
+msg_last_update_by#:#Letzte Änderung von
 msg_event_date#:#Zeitpunkt Event
 msg_display_date#:#Dauer Anzeige
+msg_delete#:#Nachrichten Löschen
 msg_form_button_save#:#Speichern
 msg_form_button_update#:#Speichern
 msg_form_button_cancel#:#Abbrechen
