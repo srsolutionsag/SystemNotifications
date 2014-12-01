@@ -14,6 +14,7 @@ msg_permanent_no#:#Temporär anzeigen
 msg_permanent_yes#:#Permanent anzeigen
 msg_prevent_login#:#Login verhindern
 msg_additional_classes#:#Weitere CSS-Klassen
+msg_allowed_users#:#zugelassene Benutzer-IDs (kommasepariert)
 common_actions#:#Aktionen
 common_add_msg#:#Nachricht hinzufügen
 msg_table_title#:#Nachrichten

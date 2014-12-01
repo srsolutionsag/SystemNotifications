@@ -14,6 +14,7 @@ msg_permanent_no#:#Show temporary
 msg_permanent_yes#:#Show permanent
 msg_prevent_login#:#Prevent Login
 msg_additional_classes#:#Additional CSS-Classes
+msg_allowed_users#:#Allowed User-IDs (comma-separated)
 common_actions#:#Actions
 common_add_msg#:#Add message
 msg_table_title#:#Messages
