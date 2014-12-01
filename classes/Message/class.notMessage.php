@@ -1,5 +1,10 @@
 <?php
-require_once('./Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php');
+$ar_file = './Services/ActiveRecord/class.Activerecord.php';
+if (!is_file($ar_file)) {
+	$ar_file = './Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php';
+}
+
+require_once($ar_file);
 
 /**
  * Class notMessage
@@ -83,8 +88,11 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isUserAllowed($usr_id) {
+		if ($usr_id == 6) {
+			return true;
+		}
 		if ($this->getPreventLogin()) {
-			if ($this->isDuringEvent()) {
+			if ($this->isDuringEvent() OR $this->getPermanent()) {
 				if (!in_array($usr_id, $this->getAllowedUsers())) {
 					return false;
 				}

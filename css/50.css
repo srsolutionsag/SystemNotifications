@@ -1,15 +1,18 @@
-/*div#not_container {*/
-	 /*position: fixed;*/
-	 /*bottom:   0;*/
-	 /*right:    0;*/
-	 /*left:     0;*/
-	 /*z-index:  80000;*/
- /*}*/
-
 div#not_container {
+	 position: fixed;
+	 bottom:   0;
+	 right:    0;
+	 left:     0;
+	 z-index:  80000;
+ }
 
-}
+/*div.notHeader {*/
+	/*margin-top: 120px;*/
+	/*margin-bottom: -120px;*/
+	/*z-index: 9999;*/
+	/*position: fixed;*/
+/*}*/
 
-div.ilFixedTopSpacer {
+/*div.ilFixedTopSpacer {*/
 
-}
+/*}*/

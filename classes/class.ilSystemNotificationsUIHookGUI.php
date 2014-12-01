@@ -15,6 +15,9 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
+	const TPL_ID = 'tpl_id';
+
+
 	public function __construct() {
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 	}
@@ -63,29 +66,18 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 * @var $tpl          ilTemplate
 		 * @var $ilToolbar    ilToolbarGUI
 		 */
-		global $ilCtrl;
-		if ($ilCtrl instanceof ilCtrl) {
-			if ($ilCtrl->getCmdClass() == 'ilstartupgui') {
-				// LOGINHOOK, shibboleth and other logins
-			}
-		}
-
 		if (sysnotConfig::is50()) {
-			//			var_dump($a_par['tpl_id']); // FSX
-			//			if ($a_par['tpl_id'] == 'Services/UICore/tpl.footer.html' AND !self::isLoaded('const')) {
-			if (($a_par['tpl_id'] == 'Services/MainMenu/tpl.main_menu.html' OR $a_par['tpl_id'] == 'Services/Init/tpl.login.html')
-				AND !self::isLoaded('const')
-			) {
-				$css = '<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css">';
-				//				$css.='<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/50.css">';
+			if ($a_par[self::TPL_ID] == 'Services/UICore/tpl.footer.html' AND !self::isLoaded('const')) {
+				$css = $this->getCss('notifications');
+				$css .= $this->getCss('50');
+
 				self::setLoaded('const');
 
 				return array( 'mode' => ilUIHookPluginGUI::APPEND, 'html' => $css . $this->getNotificatiosHTML() );
 			}
 		} elseif (sysnotConfig::is44()) {
-			if (($a_par['tpl_id'] == 'Services/Init/tpl.startup_screen.html' OR $a_par['tpl_id'] == 'tpl.adm_content.html')
-				AND !self::isLoaded('const')
-			) {
+			$part = ($a_par[self::TPL_ID] == 'Services/Init/tpl.startup_screen.html' OR $a_par[self::TPL_ID] == 'tpl.adm_content.html');
+			if ($part AND !self::isLoaded('const')) {
 				if ($_SERVER['SCRIPT_NAME'] != '/goto.php') {
 					self::setLoaded('const');
 				}
@@ -94,7 +86,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 				}
 				self::$goto_num ++;
 
-				$css = '<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css">';
+				$css = $this->getCss('notifications');
 
 				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
 			}
@@ -149,6 +141,18 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		return $notifications->get();
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function getCss($file = 'notifications') {
+		$css =
+			'<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/'
+			. $file . '.css">';
+
+		return $css;
 	}
 }
 
