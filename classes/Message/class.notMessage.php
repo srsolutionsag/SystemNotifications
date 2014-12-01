@@ -52,10 +52,10 @@ class notMessage extends ActiveRecord {
 		if ($this->getPermanent()) {
 			return $this->getType();
 		}
-		if ($this->hasEventStarted() AND ! $this->hasEventEnded()) {
+		if ($this->hasEventStarted() AND !$this->hasEventEnded()) {
 			return $this->getTypeDuringEvent();
 		}
-		if ($this->hasDisplayStarted() AND ! $this->hasDisplayEnded()) {
+		if ($this->hasDisplayStarted() AND !$this->hasDisplayEnded()) {
 			return $this->getType();
 		}
 	}
@@ -70,8 +70,8 @@ class notMessage extends ActiveRecord {
 		}
 		$hasEventStarted = $this->hasEventStarted();
 		$hasDisplayStarted = $this->hasDisplayStarted();
-		$hasEventEnded = ! $this->hasEventEnded();
-		$hasDisplayEnded = ! $this->hasDisplayEnded();
+		$hasEventEnded = !$this->hasEventEnded();
+		$hasDisplayEnded = !$this->hasDisplayEnded();
 
 		return ($hasEventStarted OR $hasDisplayStarted) AND ($hasEventEnded OR $hasDisplayEnded);
 	}
@@ -85,7 +85,7 @@ class notMessage extends ActiveRecord {
 	public function isUserAllowed($usr_id) {
 		if ($this->getPreventLogin()) {
 			if ($this->isDuringEvent()) {
-				if (! in_array($usr_id, $this->getAllowedUsers())) {
+				if (!in_array($usr_id, $this->getAllowedUsers())) {
 					return false;
 				}
 			}
@@ -479,7 +479,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasEventStarted() {
-		return time() > $this->getEventStart();
+		return $this->getTime() > $this->getEventStart();
 	}
 
 
@@ -487,7 +487,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasDisplayStarted() {
-		return time() > $this->getDisplayStart();
+		return $this->getTime() > $this->getDisplayStart();
 	}
 
 
@@ -495,7 +495,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasEventEnded() {
-		return time() > $this->getEventEnd();
+		return $this->getTime() > $this->getEventEnd();
 	}
 
 
@@ -503,7 +503,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasDisplayEnded() {
-		return time() > $this->getDisplayEnd();
+		return $this->getTime() > $this->getDisplayEnd();
 	}
 
 
@@ -591,7 +591,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function isDuringEvent() {
-		return $this->hasEventStarted() AND ! $this->hasEventEnded();
+		return $this->hasEventStarted() AND !$this->hasEventEnded();
 	}
 
 
@@ -672,6 +672,15 @@ class notMessage extends ActiveRecord {
 	 */
 	public function getLastUpdateBy() {
 		return $this->last_update_by;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	protected function getTime() {
+		return time();
+		//		return strtotime('2014-11-25 06:15:00');
 	}
 }
 

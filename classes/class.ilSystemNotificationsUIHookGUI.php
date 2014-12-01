@@ -1,9 +1,10 @@
 <?php
 
 /* Copyright (c) 1998-2010 ILIAS open source, Extended GPL, see docs/LICENSE */
-
+require_once('class.ilSystemNotificationsPlugin.php');
 require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
 
 /**
  * Class ilSystemNotificationsUIHookGUI
@@ -66,23 +67,37 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		if ($ilCtrl instanceof ilCtrl) {
 			if ($ilCtrl->getCmdClass() == 'ilstartupgui') {
 				// LOGINHOOK, shibboleth and other logins
-				//echo "!!!"; exit;
 			}
 		}
 
-		if (($a_par['tpl_id'] == 'Services/Init/tpl.startup_screen.html' OR $a_par['tpl_id'] == 'tpl.adm_content.html') AND ! self::isLoaded('const')
-		) {
-			if ($_SERVER['SCRIPT_NAME'] != '/goto.php') {
+		if (sysnotConfig::is50()) {
+			//			var_dump($a_par['tpl_id']); // FSX
+			//			if ($a_par['tpl_id'] == 'Services/UICore/tpl.footer.html' AND !self::isLoaded('const')) {
+			if (($a_par['tpl_id'] == 'Services/MainMenu/tpl.main_menu.html' OR $a_par['tpl_id'] == 'Services/Init/tpl.login.html')
+				AND !self::isLoaded('const')
+			) {
+				$css = '<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css">';
+				//				$css.='<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/50.css">';
 				self::setLoaded('const');
-			}
-			if (self::$goto_num != 0) {
-				self::setLoaded('const');
-			}
-			self::$goto_num ++;
 
-			$css = '<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css">';
+				return array( 'mode' => ilUIHookPluginGUI::APPEND, 'html' => $css . $this->getNotificatiosHTML() );
+			}
+		} elseif (sysnotConfig::is44()) {
+			if (($a_par['tpl_id'] == 'Services/Init/tpl.startup_screen.html' OR $a_par['tpl_id'] == 'tpl.adm_content.html')
+				AND !self::isLoaded('const')
+			) {
+				if ($_SERVER['SCRIPT_NAME'] != '/goto.php') {
+					self::setLoaded('const');
+				}
+				if (self::$goto_num != 0) {
+					self::setLoaded('const');
+				}
+				self::$goto_num ++;
 
-			return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
+				$css = '<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css">';
+
+				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
+			}
 		}
 
 		return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
@@ -103,7 +118,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 */
 		$show = true;
 		foreach (notMessage::get() as $notMessage) {
-			if (! $notMessage->isVisible()) {
+			if (!$notMessage->isVisible()) {
 				continue;
 			}
 
@@ -113,17 +128,17 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			$notifications->setVariable('TYPE', $notMessage->getActiveType());
 			$notifications->setVariable('POSITION', $notMessage->getPosition());
 			$notifications->setVariable('ADD_CSS', $notMessage->getAdditionalClasses());
-			if (! $notMessage->getPermanent()) {
+			if (!$notMessage->getPermanent()) {
 				$notifications->setVariable('EVENT', $notMessage->getFullTimeFormated());
 			}
 			$notifications->parseCurrentBlock();
+
+			if (!$notMessage->isUserAllowed($ilUser->getId())) {
+				$show = false;
+			}
 		}
 
-		if (! $notMessage->isUserAllowed($ilUser->getId())) {
-			$show = false;
-		}
-
-		if (! $show) {
+		if (!$show) {
 			global $tpl;
 			$tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css');
 			$tpl->getStandardTemplate();
