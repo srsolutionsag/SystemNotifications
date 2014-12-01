@@ -5,7 +5,7 @@ require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageFormGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageTableGUI.php');
-
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/class.ilSystemNotificationsPlugin.php');
 /**
  * Class ilSystemNotificationsConfigGUI
  *
@@ -38,6 +38,9 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
+		if(!$this->pl->isActive()) {
+			$this->ctrl->redirectByClass('');
+		}
 		//		$this->pl->updateLanguageFiles();
 		$this->ctrl->setParameter($this, self::NOT_MSG_ID, $_REQUEST[self::NOT_MSG_ID]);
 		$this->notMessage = notMessage::find($_GET[self::NOT_MSG_ID]);
