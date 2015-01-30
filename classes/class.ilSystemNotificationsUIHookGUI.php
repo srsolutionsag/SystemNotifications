@@ -131,12 +131,20 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		if (!$show) {
-			global $tpl;
-			$tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css');
-			$tpl->getStandardTemplate();
-			$tpl->setContent($notifications->get());
-			$tpl->show();
+			//			global $tpl;
+			//			$tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css');
+			//			$tpl->getStandardTemplate();
+			//			$tpl->setContent($notifications->get());
+			//			$tpl->show();
 
+			global $ilAuth;
+			/**
+			 * @var $ilAuth ilAuthWeb
+			 */
+			ilSession::setClosingContext(ilSession::SESSION_CLOSE_USER);
+			$ilAuth->logout();
+			session_destroy();
+			ilUtil::redirect('login.php');
 			exit;
 		}
 

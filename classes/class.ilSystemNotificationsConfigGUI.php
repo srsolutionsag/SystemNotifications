@@ -22,7 +22,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	const CMD_CANCEL = 'cancel';
 	const CMD_CONFIRM_DELETE = 'confirmDelete';
 	const CMD_DELETE = 'delete';
-	const NOT_MSG_ID = 'not_msg_id';
+	const NOT_MSG_ID = 'xnot_msg_id';
 	/**
 	 * @var notMessage
 	 */

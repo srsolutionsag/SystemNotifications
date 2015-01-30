@@ -1,10 +1,4 @@
 <?php
-$ar_file = './Services/ActiveRecord/class.Activerecord.php';
-if (!is_file($ar_file)) {
-	$ar_file = './Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php';
-}
-
-require_once($ar_file);
 
 /**
  * Class notMessage
@@ -22,6 +16,7 @@ class notMessage extends ActiveRecord {
 	const TYPE_INFO = 1;
 	const TYPE_WARNING = 2;
 	const TYPE_ERROR = 3;
+	const TABLE_NAME = 'xnot_message';
 
 
 	/**
@@ -30,7 +25,7 @@ class notMessage extends ActiveRecord {
 	 * @deprecated
 	 */
 	static function returnDbTableName() {
-		return 'xnot_message';
+		return self::TABLE_NAME;
 	}
 
 
@@ -38,7 +33,7 @@ class notMessage extends ActiveRecord {
 	 * @return string
 	 */
 	public function getConnectorContainerName() {
-		return 'xnot_message';
+		return self::TABLE_NAME;
 	}
 
 
@@ -88,7 +83,11 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isUserAllowed($usr_id) {
-		if ($usr_id == 6) {
+		global $rbacreview;
+		/**
+		 * @var $rbacreview ilRbacReview
+		 */
+		if ($usr_id == 6 OR $rbacreview->isAssigned($usr_id, 2)) {
 			return true;
 		}
 		if ($this->getPreventLogin()) {
@@ -279,7 +278,10 @@ class notMessage extends ActiveRecord {
 				return strtotime($field_value);
 				break;
 			case 'allowed_users':
-				return json_decode($field_value, true);
+				$array_unique = array_unique(json_decode($field_value, true));
+				sort($array_unique);
+
+				return $array_unique;
 				break;
 		}
 	}
@@ -301,7 +303,9 @@ class notMessage extends ActiveRecord {
 				return date(DATE_ISO8601, $this->{$field_name});
 				break;
 			case 'allowed_users':
-				return json_encode($this->allowed_users);
+				$allowed_users = array_unique(array_merge($this->allowed_users, array( 0, SYSTEM_USER_ID, ANONYMOUS_USER_ID )));
+
+				return json_encode($allowed_users);
 				break;
 		}
 	}

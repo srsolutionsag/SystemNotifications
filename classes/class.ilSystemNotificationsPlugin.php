@@ -12,6 +12,8 @@ require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php
 class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
 	const PLUGIN_NAME = 'SystemNotifications';
+	const AR_CUST = './Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php';
+	const AR_SER = './Services/ActiveRecord/class.Activerecord.php';
 	/**
 	 * @var ilSystemNotificationsPlugin
 	 */
@@ -22,7 +24,7 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	 * @return ilSystemNotificationsPlugin
 	 */
 	public static function getInstance() {
-		if (! isset(self::$instance)) {
+		if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
 
@@ -35,6 +37,36 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	public function getPluginName() {
 		return self::PLUGIN_NAME;
+	}
+
+
+	/**
+	 * @throws ilPluginException
+	 */
+	protected function init() {
+		$this->checkAR44();
+		$this->loadActiveRecord();
+	}
+
+
+	/**
+	 * @return bool
+	 * @throws ilPluginException
+	 */
+	protected function beforeActivation() {
+		$this->checkAR44();
+
+		return true;
+	}
+
+
+	/**
+	 * @throws ilPluginException
+	 */
+	protected function checkAR44() {
+		if (!is_file(self::AR_CUST)) {
+			throw new ilPluginException('Please install ActiveRecord first');
+		}
 	}
 
 
@@ -69,10 +101,20 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 			$status = file_put_contents($path . 'ilias_' . $lng_key . '.lang', $start . implode(PHP_EOL, $lang));
 		}
 
-		if (! $status) {
+		if (!$status) {
 			ilUtil::sendFailure('Language-Files could not be written');
 		}
 		$this->updateLanguages();
+	}
+
+
+	protected function loadActiveRecord() {
+		$ar_file = self::AR_SER;
+		if (!is_file($ar_file)) {
+			$ar_file = self::AR_CUST;
+		}
+
+		require_once($ar_file);
 	}
 }
 
