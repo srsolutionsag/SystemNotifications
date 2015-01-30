@@ -21,6 +21,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	const F_ADDITIONAL_CLASSES = 'additional_classes';
 	const F_PREVENT_LOGIN = 'prevent_login';
 	const F_ALLOWED_USERS = 'allowed_users';
+	const F_DISMISSABLE = 'dismissable';
+	const F_LIMIT_TO_ROLES = 'limit_to_roles';
+	const F_LIMITED_TO_ROLE_IDS = 'limited_to_role_ids';
 	/**
 	 * @var notMessage
 	 */
@@ -38,6 +41,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		 */
 		$this->notMessage = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
+//		$this->pl->updateLanguageFiles();
 		$this->is_new = $notMessage->getId() == 0;
 		$this->setFormAction($ilCtrl->getFormAction($parent_gui));
 		$this->initForm();
@@ -77,6 +81,15 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$permanent_yes = new ilRadioOption($this->txt(self::F_PERMANENT . '_yes'), 1);
 		$permanent->addOption($permanent_yes);
 		$this->addItem($permanent);
+
+		$dismissable = new ilCheckboxInputGUI($this->txt(self::F_DISMISSABLE), self::F_DISMISSABLE);
+		$this->addItem($dismissable);
+
+		$limit_to_roles = new ilCheckboxInputGUI($this->txt(self::F_LIMIT_TO_ROLES), self::F_LIMIT_TO_ROLES);
+		$limited_to_role_ids = new ilMultiSelectInputGUI($this->txt(self::F_LIMITED_TO_ROLE_IDS), self::F_LIMITED_TO_ROLE_IDS);
+		$limited_to_role_ids->setOptions(self::getRoles(ilRbacReview::FILTER_ALL_GLOBAL));
+		$limit_to_roles->addSubItem($limited_to_role_ids);
+		$this->addItem($limit_to_roles);
 
 		$permanent_no = new ilRadioOption($this->txt(self::F_PERMANENT . '_no'), 0);
 		$display_time = new ilDateDurationInputGUI($this->txt(self::F_DISPLAY_DATE), self::F_DISPLAY_DATE);
@@ -131,6 +144,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 			self::F_ADDITIONAL_CLASSES => $this->notMessage->getAdditionalClasses(),
 			self::F_PREVENT_LOGIN => $this->notMessage->getPreventLogin(),
 			self::F_ALLOWED_USERS => @implode(',', $this->notMessage->getAllowedUsers()),
+			self::F_DISMISSABLE => $this->notMessage->getDismissable(),
+			self::F_LIMIT_TO_ROLES => $this->notMessage->isLimitToRoles(),
+			self::F_LIMITED_TO_ROLE_IDS => $this->notMessage->getLimitedToRoleIds(),
 		);
 		$this->setValuesByArray($array);
 		/**
@@ -151,7 +167,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	protected function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 
@@ -164,6 +180,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setAdditionalClasses($this->getInput(self::F_ADDITIONAL_CLASSES));
 		$this->notMessage->setPreventLogin($this->getInput(self::F_PREVENT_LOGIN));
 		$this->notMessage->setAllowedUsers(@explode(',', $this->getInput(self::F_ALLOWED_USERS)));
+		$this->notMessage->setDismissable($this->getInput(self::F_DISMISSABLE));
+		$this->notMessage->setLimitToRoles($this->getInput(self::F_LIMIT_TO_ROLES));
+		$this->notMessage->setLimitedToRoleIds($this->getInput(self::F_LIMITED_TO_ROLE_IDS));
 
 		/**
 		 * @var $f_event_date   ilDateDurationInputGUI
@@ -178,35 +197,6 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setDisplayEnd($f_display_date->getEnd()->get(IL_CAL_UNIX));
 
 		return true;
-	}
-
-
-	/**
-	 * @param     $postvar
-	 * @param     $type
-	 * @param int $format
-	 *
-	 * @return array|bool|int|string
-	 */
-	public function getDateInput($postvar, $type, $format = IL_CAL_UNIX) {
-		/**
-		 * @var $f_event_date   ilDateDurationInputGUI
-		 */
-		$f_event_date = $this->getItemByPostVar($postvar);
-
-		echo '<pre>' . print_r($f_event_date->getStart(), 1) . '</pre>';
-
-		//		$array = $this->getInput($postvar);
-		//		$date = $array[$type]['date'];
-		//		$time = $array[$type]['time'];
-		//
-		//		$date_string = implode('.', array( $date['d'], $date['m'], $date['y'] ));
-		//		$time_string = implode(':', array( $time['h'], '0'.$time['m'], '00'.$time['s'] ));
-		//
-		//		$full_string = $date_string . ' - ' . $time_string;
-		//		echo $full_string . ' __ ';
-		//		$timestamp = strtotime($full_string);
-		//		echo date('d.m.Y - H:i:s', $timestamp) . '<br>';
 	}
 
 
@@ -235,7 +225,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool false when unsuccessful or int request_id when successful
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 		if ($this->notMessage->getId() > 0) {
@@ -253,9 +243,36 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_SAVE, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_SAVE));
 		} else {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE, $this->txt('form_button_'
-			. ilSystemNotificationsConfigGUI::CMD_UPDATE));
+				. ilSystemNotificationsConfigGUI::CMD_UPDATE));
+			//			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY, $this->txt('form_button_'
+			//				. ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY));
 		}
 		$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_CANCEL, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_CANCEL));
+	}
+
+
+	/**
+	 * @param int  $filter
+	 * @param bool $with_text
+	 *
+	 * @return array
+	 */
+	public static function getRoles($filter, $with_text = true) {
+		global $rbacreview;
+		/**
+		 * @var $rbacreview ilRbacReview
+		 */
+		$opt = array();
+		$role_ids = array();
+		foreach ($rbacreview->getRolesByFilter($filter) as $role) {
+			$opt[$role['obj_id']] = $role['title'] . ' (' . $role['obj_id'] . ')';
+			$role_ids[] = $role['obj_id'];
+		}
+		if ($with_text) {
+			return $opt;
+		} else {
+			return $role_ids;
+		}
 	}
 }
 

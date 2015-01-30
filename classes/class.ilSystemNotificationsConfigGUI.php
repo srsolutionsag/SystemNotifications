@@ -6,6 +6,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageTableGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/class.ilSystemNotificationsPlugin.php');
+
 /**
  * Class ilSystemNotificationsConfigGUI
  *
@@ -17,10 +18,12 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	const CMD_STD = 'configure';
 	const CMD_SAVE = 'save';
 	const CMD_UPDATE = 'update';
+	const CMD_UPDATE_AND_STAY = 'updateAndStay';
 	const CMD_ADD = 'add';
 	const CMD_EDIT = 'edit';
 	const CMD_CANCEL = 'cancel';
 	const CMD_CONFIRM_DELETE = 'confirmDelete';
+	const CMD_RESET_FOR_ALL = 'resetForAll';
 	const CMD_DELETE = 'delete';
 	const NOT_MSG_ID = 'xnot_msg_id';
 	/**
@@ -38,10 +41,11 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		if(!$this->pl->isActive()) {
+		if (!$this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
 		}
-//				$this->pl->updateLanguageFiles();
+		//		notMessage::updateDB();
+		//				$this->pl->updateLanguageFiles();
 		$this->ctrl->setParameter($this, self::NOT_MSG_ID, $_REQUEST[self::NOT_MSG_ID]);
 		$this->notMessage = notMessage::find($_GET[self::NOT_MSG_ID]);
 	}
@@ -107,6 +111,16 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	}
 
 
+	protected function updateAndStay() {
+		$notMessageFormGUI = new notMessageFormGUI($this, $this->notMessage);
+		$notMessageFormGUI->setValuesByPost();
+		if ($notMessageFormGUI->saveObject()) {
+			ilUtil::sendInfo($this->pl->txt('msg_success'));
+		}
+		$this->tpl->setContent($notMessageFormGUI->getHTML());
+	}
+
+
 	protected function confirmDelete() {
 		$ilConfirmationGUI = new ilConfirmationGUI();
 		$ilConfirmationGUI->setFormAction($this->ctrl->getFormAction($this));
@@ -121,6 +135,12 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	protected function delete() {
 		$this->notMessage->delete();
 		ilUtil::sendInfo($this->pl->txt('msg_success'), true);
+		$this->cancel();
+	}
+
+
+	protected function resetForAll() {
+		$this->notMessage->resetForAllUsers();
 		$this->cancel();
 	}
 }
