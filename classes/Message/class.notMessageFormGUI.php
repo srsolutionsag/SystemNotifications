@@ -21,6 +21,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	const F_ADDITIONAL_CLASSES = 'additional_classes';
 	const F_PREVENT_LOGIN = 'prevent_login';
 	const F_ALLOWED_USERS = 'allowed_users';
+	const F_DISMISSABLE = 'dismissable';
 	/**
 	 * @var notMessage
 	 */
@@ -38,6 +39,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		 */
 		$this->notMessage = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
+		$this->pl->updateLanguageFiles();
 		$this->is_new = $notMessage->getId() == 0;
 		$this->setFormAction($ilCtrl->getFormAction($parent_gui));
 		$this->initForm();
@@ -77,6 +79,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$permanent_yes = new ilRadioOption($this->txt(self::F_PERMANENT . '_yes'), 1);
 		$permanent->addOption($permanent_yes);
 		$this->addItem($permanent);
+
+		$dismissable = new ilCheckboxInputGUI($this->txt(self::F_DISMISSABLE), self::F_DISMISSABLE);
+		$this->addItem($dismissable);
 
 		$permanent_no = new ilRadioOption($this->txt(self::F_PERMANENT . '_no'), 0);
 		$display_time = new ilDateDurationInputGUI($this->txt(self::F_DISPLAY_DATE), self::F_DISPLAY_DATE);
@@ -131,6 +136,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 			self::F_ADDITIONAL_CLASSES => $this->notMessage->getAdditionalClasses(),
 			self::F_PREVENT_LOGIN => $this->notMessage->getPreventLogin(),
 			self::F_ALLOWED_USERS => @implode(',', $this->notMessage->getAllowedUsers()),
+			self::F_DISMISSABLE => $this->notMessage->getDismissable(),
 		);
 		$this->setValuesByArray($array);
 		/**
@@ -151,7 +157,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	protected function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 
@@ -163,6 +169,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setPosition($this->getInput(self::F_POSITION));
 		$this->notMessage->setAdditionalClasses($this->getInput(self::F_ADDITIONAL_CLASSES));
 		$this->notMessage->setPreventLogin($this->getInput(self::F_PREVENT_LOGIN));
+		$this->notMessage->setDismissable($this->getInput(self::F_DISMISSABLE));
 		$this->notMessage->setAllowedUsers(@explode(',', $this->getInput(self::F_ALLOWED_USERS)));
 
 		/**
@@ -235,7 +242,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool false when unsuccessful or int request_id when successful
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 		if ($this->notMessage->getId() > 0) {
@@ -253,7 +260,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_SAVE, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_SAVE));
 		} else {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE, $this->txt('form_button_'
-			. ilSystemNotificationsConfigGUI::CMD_UPDATE));
+				. ilSystemNotificationsConfigGUI::CMD_UPDATE));
 		}
 		$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_CANCEL, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_CANCEL));
 	}

@@ -28,3 +28,4 @@ msg_form_button_cancel#:#Cancel
 msg_form_button_delete#:#Delete
 msg_form_title#:#Compose message
 msg_success#:#Success
+msg_dismissable#:#Dismissable

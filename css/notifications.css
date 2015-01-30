@@ -1,10 +1,7 @@
 
-
 div.not_message {
 	background-color: #808080;
 }
-
-
 
 /* TOP */
 div.not_pos_1, div.not_pos_ {
@@ -49,13 +46,22 @@ div.not_message p.not_body {
 
 }
 
-div.not_message span.not_event {
+div.not_message span.not_event, div.not_message span.not_dismiss {
 	color:        white;
 	float:        right;
 	font-size:    10px;
 	line-height:  40px;
 	margin-right: 20px;
+}
 
+div.not_message span.not_dismiss a {
+	color:           white;
+	font-size:       25px;
+	text-decoration: none;
+}
+
+div.not_message span.not_dismiss a:hover {
+	color: darkgrey;
 }
 
 div.not_type_1 {

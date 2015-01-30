@@ -1,11 +1,12 @@
-<div id="not_container" class="notHeader" >
-<!-- BEGIN notification -->
 <div id="not_id_{ID}" class="not_message not_pos_{POSITION} not_type_{TYPE} {ADD_CSS}">
+	<!-- BEGIN link_title -->
+	<h1 class="not_title"><a href="{LINK}">{TITLE}</a></h1>
+	<!-- END link_title -->
 	<h1 class="not_title">{TITLE}</h1>
 	<p class="not_body">{BODY}</p>
 	<!-- BEGIN permanent -->
 	<span class="not_event">{EVENT}</span>
-	<!-- END permanent -->
-</div>
-<!-- END notification -->
+	<!-- END permanent -->    <!-- BEGIN dismiss -->
+	<span class="not_dismiss"><a href="{DISMISS_LINK}">&times;</a></span>
+	<!-- END dismiss -->
 </div>

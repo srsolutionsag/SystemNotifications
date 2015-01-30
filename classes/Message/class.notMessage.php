@@ -1,5 +1,5 @@
 <?php
-
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php');
 /**
  * Class notMessage
  *
@@ -34,6 +34,14 @@ class notMessage extends ActiveRecord {
 	 */
 	public function getConnectorContainerName() {
 		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @param ilObjUser $ilObjUser
+	 */
+	public function dismiss(ilObjUser $ilObjUser) {
+		sysnotDismiss::dismiss($ilObjUser, $this);
 	}
 
 
