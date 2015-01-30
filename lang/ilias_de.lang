@@ -1,7 +1,7 @@
 <!-- language file start -->
 msg_title#:#Titel
 msg_type#:#Typ
-msg_type_during_event#:#Typ währen Event
+msg_type_during_event#:#Typ während Event
 msg_type_1#:#Info
 msg_type_2#:#Warnung
 msg_type_3#:#Wichtig
