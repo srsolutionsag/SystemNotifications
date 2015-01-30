@@ -60,7 +60,6 @@ class notMessageTableGUI extends ilTable2GUI {
 
 	protected function fillRow($a_set) {
 		global $lng;
-		//		echo '<pre>' . print_r($a_set, 1) . '</pre>';
 		/**
 		 * @var $notMessage notMessage
 		 */
