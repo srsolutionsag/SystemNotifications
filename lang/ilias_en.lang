@@ -31,3 +31,4 @@ msg_success#:#Success
 msg_dismissable#:#Dismissable
 msg_limit_to_roles#:#Limit to Roles
 msg_limited_to_role_ids#:#Roles
+msg_reset_dismiss#:#Reset for all users

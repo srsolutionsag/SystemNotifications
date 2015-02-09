@@ -31,3 +31,4 @@ msg_success#:#Angewendet
 msg_dismissable#:#Verwerfbar
 msg_limit_to_roles#:#Anzeige auf Rollen einschränken
 msg_limited_to_role_ids#:#Rollen
+msg_reset_dismiss#:#Für alle Benutzer zurücksetzen
