@@ -16,7 +16,7 @@ class notMessageTableGUI extends ilTable2GUI {
 	 * @param string                         $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
-		global $ilCtrl, $ilTabs, $ilToolbar, $tpl;
+		global $ilCtrl, $ilTabs;
 		/**
 		 * @var $tpl       ilTemplate
 		 * @var $ilCtrl    ilCtrl
@@ -24,7 +24,7 @@ class notMessageTableGUI extends ilTable2GUI {
 		 * @var $ilToolbar ilToolbarGUI
 		 */
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-
+//		$this->pl->updateLanguageFiles();
 		$this->ctrl = $ilCtrl;
 		$this->tabs = $ilTabs;
 		$this->setId('msg_msg_table');
@@ -79,7 +79,7 @@ class notMessageTableGUI extends ilTable2GUI {
 		$actions->addItem($lng->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
 		$actions->addItem($lng->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
 		if ($notMessage->getDismissable()) {
-			$actions->addItem($lng->txt('reset_for_all'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_RESET_FOR_ALL));
+			$actions->addItem($this->pl->txt('msg_reset_dismiss'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_RESET_FOR_ALL));
 		}
 		$this->tpl->setVariable('ACTIONS', $actions->getHTML());
 	}
