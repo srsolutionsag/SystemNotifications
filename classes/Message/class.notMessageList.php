@@ -66,7 +66,7 @@ class notMessageList extends ActiveRecordList {
 		$this->arOrderCollection = arOrderCollection::getInstance($this->getAR());
 		$this->arConcatCollection = arConcatCollection::getInstance($this->getAR());
 		$this->arSelectCollection = arSelectCollection::getInstance($this->getAR());
-		$this->arHavingCollection = arHavingCollection::getInstance($this->getAR());
+//		$this->arHavingCollection = arHavingCollection::getInstance($this->getAR());
 
 		$arSelect = new arSelect();
 		$arSelect->setTableName($this->getAR()->getConnectorContainerName());
