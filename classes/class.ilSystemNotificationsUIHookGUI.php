@@ -5,6 +5,8 @@ require_once('class.ilSystemNotificationsPlugin.php');
 require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageList.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageListGUI.php');
 
 /**
  * Class ilSystemNotificationsUIHookGUI
@@ -101,54 +103,12 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function getNotificatiosHTML() {
 		global $ilUser;
-		/**
-		 * @var $ilUser ilObjUser
-		 */
-		$notifications = new ilTemplate('tpl.notification.html', true, true, $this->pl->getDirectory());
-		/**
-		 * @var $notMessage notMessage
-		 */
-		$show = true;
-		foreach (notMessage::get() as $notMessage) {
-			if (!$notMessage->isVisible()) {
-				continue;
-			}
 
-			$notifications->setCurrentBlock('notification');
-			$notifications->setVariable('TITLE', $notMessage->getTitle());
-			$notifications->setVariable('BODY', $notMessage->getBody());
-			$notifications->setVariable('TYPE', $notMessage->getActiveType());
-			$notifications->setVariable('POSITION', $notMessage->getPosition());
-			$notifications->setVariable('ADD_CSS', $notMessage->getAdditionalClasses());
-			if (!$notMessage->getPermanent()) {
-				$notifications->setVariable('EVENT', $notMessage->getFullTimeFormated());
-			}
-			$notifications->parseCurrentBlock();
+		$notMessageList = new notMessageList();
+		$notMessageList->check($ilUser);
+		$notifications = new notMessageListGUI($notMessageList);
 
-			if (!$notMessage->isUserAllowed($ilUser->getId())) {
-				$show = false;
-			}
-		}
-
-		if (!$show) {
-			//			global $tpl;
-			//			$tpl->addCss('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/notifications.css');
-			//			$tpl->getStandardTemplate();
-			//			$tpl->setContent($notifications->get());
-			//			$tpl->show();
-
-			global $ilAuth;
-			/**
-			 * @var $ilAuth ilAuthWeb
-			 */
-			ilSession::setClosingContext(ilSession::SESSION_CLOSE_USER);
-			$ilAuth->logout();
-			session_destroy();
-			ilUtil::redirect('login.php');
-			exit;
-		}
-
-		return $notifications->get();
+		return $notifications->getHTML();
 	}
 
 
@@ -161,6 +121,21 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			. $file . '.css">';
 
 		return $css;
+	}
+
+
+	public function gotoHook() {
+		if (preg_match("/xnot_dismiss_(.*)/uim", $_GET['target'], $matches)) {
+			global $ilUser;
+			/**
+			 * @var $notMessage notMessage
+			 */
+			$notMessage = notMessage::find($matches[1]);
+			if ($notMessage instanceof notMessage) {
+				$notMessage->dismiss($ilUser);
+				ilUtil::redirect($_SERVER['HTTP_REFERER']);
+			}
+		}
 	}
 }
 

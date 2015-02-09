@@ -78,6 +78,9 @@ class notMessageTableGUI extends ilTable2GUI {
 		$actions->setId('msg_' . $notMessage->getId());
 		$actions->addItem($lng->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
 		$actions->addItem($lng->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
+		if ($notMessage->getDismissable()) {
+			$actions->addItem($lng->txt('reset_for_all'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_RESET_FOR_ALL));
+		}
 		$this->tpl->setVariable('ACTIONS', $actions->getHTML());
 	}
 }
