@@ -1,4 +1,5 @@
 <?php
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php');
 
 /**
  * Class notMessage
@@ -17,6 +18,9 @@ class notMessage extends ActiveRecord {
 	const TYPE_WARNING = 2;
 	const TYPE_ERROR = 3;
 	const TABLE_NAME = 'xnot_message';
+	const LINK_TYPE_NONE = 0;
+	const LINK_TYPE_REF_ID = 1;
+	const LINK_TYPE_URL = 2;
 
 
 	/**
@@ -38,10 +42,51 @@ class notMessage extends ActiveRecord {
 
 
 	/**
+	 * @param ilObjUser $ilObjUser
+	 */
+	public function dismiss(ilObjUser $ilObjUser) {
+		if ($this->isUserAllowedToDismiss($ilObjUser)) {
+			sysnotDismiss::dismiss($ilObjUser, $this);
+		}
+	}
+
+
+	/**
+	 * @param ilObjUser $ilObjUser
+	 *
+	 * @return bool
+	 */
+	protected function hasUserDismissed(ilObjUser $ilObjUser) {
+		if (!$this->getDismissable()) {
+			return false;
+		}
+
+		return sysnotDismiss::hasDimissed($ilObjUser, $this);
+	}
+
+
+	public function resetForAllUsers() {
+		foreach (sysnotDismiss::where(array( 'notification_id' => $this->getId() ))->get() as $not) {
+			$not->delete();
+		}
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getFullTimeFormated() {
 		return date(self::DATE_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_FORMAT, $this->getEventEnd());
+	}
+
+
+	/**
+	 * @param ilObjUser $ilUser
+	 *
+	 * @return bool
+	 */
+	public function isUserAllowedToDismiss(ilObjUser $ilUser) {
+		return ($this->getDismissable() AND $ilUser->getId() != 0 AND $ilUser->getId() != ANONYMOUS_USER_ID);
 	}
 
 
@@ -64,7 +109,7 @@ class notMessage extends ActiveRecord {
 	/**
 	 * @return bool
 	 */
-	public function isVisible() {
+	protected function isVisible() {
 		if ($this->getPermanent()) {
 			return true;
 		}
@@ -74,6 +119,45 @@ class notMessage extends ActiveRecord {
 		$hasDisplayEnded = !$this->hasDisplayEnded();
 
 		return ($hasEventStarted OR $hasDisplayStarted) AND ($hasEventEnded OR $hasDisplayEnded);
+	}
+
+
+	/**
+	 * @param ilObjUser $ilObjUser
+	 *
+	 * @return bool
+	 */
+	public function isVisibleForUser(ilObjUser $ilObjUser) {
+		if (!$this->isVisible()) {
+			return false;
+		}
+		if ($this->hasUserDismissed($ilObjUser)) {
+			return false;
+		}
+		if (!$this->isVisibleRoleUserRoles($ilObjUser)) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * @param ilObjUser $ilObjUser
+	 *
+	 * @return bool
+	 */
+	protected function isVisibleRoleUserRoles(ilObjUser $ilObjUser) {
+		if (!$this->isLimitToRoles()) {
+			return true;
+		}
+		global $rbacreview;
+
+		/**
+		 * @var ilRbacReview $rbacreview
+		 */
+
+		return $rbacreview->isAssignedToAtLeastOneGivenRole($ilObjUser->getId(), $this->getLimitedToRoleIds());
 	}
 
 
@@ -259,6 +343,54 @@ class notMessage extends ActiveRecord {
 	 * @con_length     8
 	 */
 	protected $last_update_by = NULL;
+	/**
+	 * @var bool
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     1
+	 */
+	protected $active = true;
+	/**
+	 * @var array
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    256
+	 */
+	protected $limited_to_role_ids = array();
+	/**
+	 * @var bool
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     1
+	 */
+	protected $limit_to_roles = false;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    256
+	 */
+	protected $link = '';
+	/**
+	 * @var int
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     1
+	 */
+	protected $link_type = self::LINK_TYPE_NONE;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    256
+	 */
+	protected $link_target = '_top';
 
 
 	/**
@@ -283,6 +415,9 @@ class notMessage extends ActiveRecord {
 
 				return $array_unique;
 				break;
+			case 'limited_to_role_ids':
+				return json_decode($field_value, true);
+				break;
 		}
 	}
 
@@ -306,6 +441,9 @@ class notMessage extends ActiveRecord {
 				$allowed_users = array_unique(array_merge($this->allowed_users, array( 0, SYSTEM_USER_ID, ANONYMOUS_USER_ID )));
 
 				return json_encode($allowed_users);
+				break;
+			case 'limited_to_role_ids':
+				return json_encode($this->{$field_name});
 				break;
 		}
 	}
@@ -693,6 +831,102 @@ class notMessage extends ActiveRecord {
 	protected function getTime() {
 		return time();
 		//		return strtotime('2014-11-25 06:15:00');
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isActive() {
+		return $this->active;
+	}
+
+
+	/**
+	 * @param boolean $active
+	 */
+	public function setActive($active) {
+		$this->active = $active;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getLimitedToRoleIds() {
+		return $this->limited_to_role_ids;
+	}
+
+
+	/**
+	 * @param array $limited_to_role_ids
+	 */
+	public function setLimitedToRoleIds($limited_to_role_ids) {
+		$this->limited_to_role_ids = $limited_to_role_ids;
+	}
+
+
+	/**
+	 * @return boolean
+	 */
+	public function isLimitToRoles() {
+		return $this->limit_to_roles;
+	}
+
+
+	/**
+	 * @param boolean $limit_to_roles
+	 */
+	public function setLimitToRoles($limit_to_roles) {
+		$this->limit_to_roles = $limit_to_roles;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLink() {
+		return $this->link;
+	}
+
+
+	/**
+	 * @param string $link
+	 */
+	public function setLink($link) {
+		$this->link = $link;
+	}
+
+
+	/**
+	 * @return sint
+	 */
+	public function getLinkType() {
+		return $this->link_type;
+	}
+
+
+	/**
+	 * @param sint $link_type
+	 */
+	public function setLinkType($link_type) {
+		$this->link_type = $link_type;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLinkTarget() {
+		return $this->link_target;
+	}
+
+
+	/**
+	 * @param string $link_target
+	 */
+	public function setLinkTarget($link_target) {
+		$this->link_target = $link_target;
 	}
 }
 

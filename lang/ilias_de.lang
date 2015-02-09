@@ -28,3 +28,6 @@ msg_form_button_cancel#:#Abbrechen
 msg_form_button_delete#:#Löschen
 msg_form_title#:#Nachricht erfassen
 msg_success#:#Angewendet
+msg_dismissable#:#Verwerfbar
+msg_limit_to_roles#:#Anzeige auf Rollen einschränken
+msg_limited_to_role_ids#:#Rollen
