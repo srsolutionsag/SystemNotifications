@@ -13,5 +13,5 @@ global $ilDB;
 /**
  * @var $ilDB ilDB
  */
-$ilDB->manipulate('UPDATE '.notMessage::returnDbTableName().' SET active = 1;');
+$ilDB->manipulate('UPDATE '.notMessage::returnDbTableName().' SET active = 1, link_type = 0;');
 ?>

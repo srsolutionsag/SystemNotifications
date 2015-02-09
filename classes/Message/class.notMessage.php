@@ -18,6 +18,9 @@ class notMessage extends ActiveRecord {
 	const TYPE_WARNING = 2;
 	const TYPE_ERROR = 3;
 	const TABLE_NAME = 'xnot_message';
+	const LINK_TYPE_NONE = 0;
+	const LINK_TYPE_REF_ID = 1;
+	const LINK_TYPE_URL = 2;
 
 
 	/**
@@ -364,6 +367,30 @@ class notMessage extends ActiveRecord {
 	 * @con_length     1
 	 */
 	protected $limit_to_roles = false;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    256
+	 */
+	protected $link = '';
+	/**
+	 * @var int
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     1
+	 */
+	protected $link_type = self::LINK_TYPE_NONE;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field true
+	 * @con_fieldtype text
+	 * @con_length    256
+	 */
+	protected $link_target = '_top';
 
 
 	/**
@@ -852,6 +879,54 @@ class notMessage extends ActiveRecord {
 	 */
 	public function setLimitToRoles($limit_to_roles) {
 		$this->limit_to_roles = $limit_to_roles;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLink() {
+		return $this->link;
+	}
+
+
+	/**
+	 * @param string $link
+	 */
+	public function setLink($link) {
+		$this->link = $link;
+	}
+
+
+	/**
+	 * @return sint
+	 */
+	public function getLinkType() {
+		return $this->link_type;
+	}
+
+
+	/**
+	 * @param sint $link_type
+	 */
+	public function setLinkType($link_type) {
+		$this->link_type = $link_type;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLinkTarget() {
+		return $this->link_target;
+	}
+
+
+	/**
+	 * @param string $link_target
+	 */
+	public function setLinkTarget($link_target) {
+		$this->link_target = $link_target;
 	}
 }
 
