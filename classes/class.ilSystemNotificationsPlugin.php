@@ -1,9 +1,10 @@
 <?php
 
 require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
 
 /**
- * ilSystemNotificationsPlugin
+ * Class ilSystemNotificationsPlugin
  *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version $Id$
@@ -13,7 +14,7 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
 	const PLUGIN_NAME = 'SystemNotifications';
 	const AR_CUST = './Customizing/global/plugins/Libraries/ActiveRecord/class.ActiveRecord.php';
-	const AR_SER = './Services/ActiveRecord/class.Activerecord.php';
+	const AR_SER = './Services/ActiveRecord/class.ActiveRecord.php';
 	/**
 	 * @var ilSystemNotificationsPlugin
 	 */
@@ -64,6 +65,9 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	 * @throws ilPluginException
 	 */
 	protected function checkAR44() {
+		if (sysnotConfig::is50()) {
+			return true;
+		}
 		if (!is_file(self::AR_CUST)) {
 			throw new ilPluginException('Please install ActiveRecord first');
 		}
