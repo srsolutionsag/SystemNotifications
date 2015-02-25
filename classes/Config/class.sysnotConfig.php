@@ -13,6 +13,7 @@ class sysnotConfig {
 	const MIN_ILIAS_VERSION = self::ILIAS_44;
 	const ILIAS_44 = 44;
 	const ILIAS_50 = 50;
+	const ILIAS_51 = 51;
 
 
 	/**

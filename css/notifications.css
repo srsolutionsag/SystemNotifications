@@ -80,3 +80,18 @@ div.not_type_2 {
 div.not_type_3 {
 	background-color: rgb(237, 139, 141);
 }
+
+@media only screen and (max-width: 640px) {
+	p.not_body {
+		display: none;
+	}
+
+	div.not_message span.not_dismiss {
+		position: absolute;
+		left:     5px;
+	}
+
+	div.not_message h1.not_title {
+		margin-left: 30px;
+	}
+}
