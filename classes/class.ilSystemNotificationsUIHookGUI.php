@@ -18,6 +18,9 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	const TPL_ID = 'tpl_id';
+	const SERVICES_INIT_TPL_LOGIN_HTML = 'Services/Init/tpl.login.html';
+	const TPL_ADM_CONTENT_HTML = 'tpl.adm_content.html';
+	const SERVICES_INIT_TPL_LOGOUT_HTML = 'Services/Init/tpl.logout.html';
 
 
 	public function __construct() {
@@ -69,17 +72,32 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 * @var $ilToolbar    ilToolbarGUI
 		 */
 		if (sysnotConfig::is50()) {
-			if ($a_par[self::TPL_ID] == 'Services/UICore/tpl.footer.html' AND !self::isLoaded('const')) {
+			//			if ($a_par[self::TPL_ID] == 'Services/UICore/tpl.footer.html' AND ! self::isLoaded('const')) {
+			//			var_dump($a_par[self::TPL_ID]); // FSX
+			// tpl.statusline.html
+			$tpls = array(
+				self::TPL_ADM_CONTENT_HTML,
+				self::SERVICES_INIT_TPL_LOGIN_HTML,
+				self::SERVICES_INIT_TPL_LOGOUT_HTML,
+			);
+			$tpls_wo_css = array(
+				self::SERVICES_INIT_TPL_LOGIN_HTML,
+				self::SERVICES_INIT_TPL_LOGOUT_HTML,
+			);
+
+			if (in_array($a_par[self::TPL_ID], $tpls) AND ! self::isLoaded('const')) {
 				$css = $this->getCss('notifications');
-				$css .= $this->getCss('50');
+				if (! in_array($a_par[self::TPL_ID], $tpls_wo_css)) {
+					$css .= $this->getCss('50');
+				}
 
 				self::setLoaded('const');
 
-				return array( 'mode' => ilUIHookPluginGUI::APPEND, 'html' => $css . $this->getNotificatiosHTML() );
+				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
 			}
 		} elseif (sysnotConfig::is44()) {
-			$part = ($a_par[self::TPL_ID] == 'Services/Init/tpl.startup_screen.html' OR $a_par[self::TPL_ID] == 'tpl.adm_content.html');
-			if ($part AND !self::isLoaded('const')) {
+			$part = ($a_par[self::TPL_ID] == 'Services/Init/tpl.startup_screen.html' OR $a_par[self::TPL_ID] == self::TPL_ADM_CONTENT_HTML);
+			if ($part AND ! self::isLoaded('const')) {
 				if ($_SERVER['SCRIPT_NAME'] != '/goto.php') {
 					self::setLoaded('const');
 				}
@@ -133,8 +151,8 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			$notMessage = notMessage::find($matches[1]);
 			if ($notMessage instanceof notMessage) {
 				$notMessage->dismiss($ilUser);
-				ilUtil::redirect($_SERVER['HTTP_REFERER']);
 			}
+			ilUtil::redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
 }
