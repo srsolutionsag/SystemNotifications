@@ -315,7 +315,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  text
 	 * @con_length     256
 	 */
-	protected $allowed_users = array( 6, 0 );
+	protected $allowed_users = array( 0, 6, 13 );
 	/**
 	 * @var int
 	 *
