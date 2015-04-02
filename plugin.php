@@ -1,6 +1,6 @@
 <?php
 $id = 'sys_not';
-$version = '1.2.0';
+$version = '1.2.1';
 $ilias_min_version = '4.4.0';
 $ilias_max_version = '5.0.999';
 $responsible = 'Fabian Schmid';

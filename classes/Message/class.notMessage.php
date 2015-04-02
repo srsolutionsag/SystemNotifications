@@ -21,6 +21,10 @@ class notMessage extends ActiveRecord {
 	const LINK_TYPE_NONE = 0;
 	const LINK_TYPE_REF_ID = 1;
 	const LINK_TYPE_URL = 2;
+	/**
+	 * @var array
+	 */
+	protected static $allowed_user_ids = array( 0, 13, 6 );
 
 
 	/**
@@ -57,7 +61,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasUserDismissed(ilObjUser $ilObjUser) {
-		if (!$this->getDismissable()) {
+		if (! $this->getDismissable()) {
 			return false;
 		}
 
@@ -97,10 +101,10 @@ class notMessage extends ActiveRecord {
 		if ($this->getPermanent()) {
 			return $this->getType();
 		}
-		if ($this->hasEventStarted() AND !$this->hasEventEnded()) {
+		if ($this->hasEventStarted() AND ! $this->hasEventEnded()) {
 			return $this->getTypeDuringEvent();
 		}
-		if ($this->hasDisplayStarted() AND !$this->hasDisplayEnded()) {
+		if ($this->hasDisplayStarted() AND ! $this->hasDisplayEnded()) {
 			return $this->getType();
 		}
 	}
@@ -115,8 +119,8 @@ class notMessage extends ActiveRecord {
 		}
 		$hasEventStarted = $this->hasEventStarted();
 		$hasDisplayStarted = $this->hasDisplayStarted();
-		$hasEventEnded = !$this->hasEventEnded();
-		$hasDisplayEnded = !$this->hasDisplayEnded();
+		$hasEventEnded = ! $this->hasEventEnded();
+		$hasDisplayEnded = ! $this->hasDisplayEnded();
 
 		return ($hasEventStarted OR $hasDisplayStarted) AND ($hasEventEnded OR $hasDisplayEnded);
 	}
@@ -128,13 +132,14 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isVisibleForUser(ilObjUser $ilObjUser) {
-		if (!$this->isVisible()) {
+		if (! $this->isVisible()) {
+
 			return false;
 		}
 		if ($this->hasUserDismissed($ilObjUser)) {
 			return false;
 		}
-		if (!$this->isVisibleRoleUserRoles($ilObjUser)) {
+		if (! $this->isVisibleRoleUserRoles($ilObjUser)) {
 			return false;
 		}
 
@@ -148,7 +153,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function isVisibleRoleUserRoles(ilObjUser $ilObjUser) {
-		if (!$this->isLimitToRoles()) {
+		if (! $this->isLimitToRoles()) {
 			return true;
 		}
 		global $rbacreview;
@@ -156,27 +161,33 @@ class notMessage extends ActiveRecord {
 		/**
 		 * @var ilRbacReview $rbacreview
 		 */
+		if ($ilObjUser->getId() === 0 AND in_array(0, $this->getLimitedToRoleIds())) {
+			return true;
+		}
 
 		return $rbacreview->isAssignedToAtLeastOneGivenRole($ilObjUser->getId(), $this->getLimitedToRoleIds());
 	}
 
 
 	/**
-	 * @param $usr_id
+	 * @param $ilObjUser
 	 *
 	 * @return bool
 	 */
-	public function isUserAllowed($usr_id) {
+	public function isUserAllowed(ilObjUser $ilObjUser) {
 		global $rbacreview;
 		/**
 		 * @var $rbacreview ilRbacReview
 		 */
-		if ($usr_id == 6 OR $rbacreview->isAssigned($usr_id, 2)) {
+		if (in_array($ilObjUser->getId(), self::$allowed_user_ids)) {
+			return true;
+		}
+		if ($rbacreview->isAssigned($ilObjUser->getId(), 2)) {
 			return true;
 		}
 		if ($this->getPreventLogin()) {
 			if ($this->isDuringEvent() OR $this->getPermanent()) {
-				if (!in_array($usr_id, $this->getAllowedUsers())) {
+				if (! in_array($ilObjUser->getId(), $this->getAllowedUsers())) {
 					return false;
 				}
 			}
@@ -304,7 +315,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  text
 	 * @con_length     256
 	 */
-	protected $allowed_users = array( 6, 0 );
+	protected $allowed_users = array( 0, 6, 13 );
 	/**
 	 * @var int
 	 *
@@ -410,7 +421,16 @@ class notMessage extends ActiveRecord {
 				return strtotime($field_value);
 				break;
 			case 'allowed_users':
-				$array_unique = array_unique(json_decode($field_value, true));
+				if ($field_value === NULL) {
+					$array_unique = self::$allowed_user_ids;
+				} else {
+					$json_decode = json_decode($field_value, true);
+					if (! is_array($json_decode)) {
+						$json_decode = self::$allowed_user_ids;
+					}
+					$array_unique = array_unique($json_decode);
+				}
+
 				sort($array_unique);
 
 				return $array_unique;
@@ -438,9 +458,12 @@ class notMessage extends ActiveRecord {
 				return date(DATE_ISO8601, $this->{$field_name});
 				break;
 			case 'allowed_users':
-				$allowed_users = array_unique(array_merge($this->allowed_users, array( 0, SYSTEM_USER_ID, ANONYMOUS_USER_ID )));
+				$allowed_users = self::$allowed_user_ids;
+				foreach ($this->allowed_users as $user_id) {
+					$allowed_users[] = (int)$user_id;
+				}
 
-				return json_encode($allowed_users);
+				return json_encode(array_unique($allowed_users));
 				break;
 			case 'limited_to_role_ids':
 				return json_encode($this->{$field_name});
@@ -741,7 +764,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function isDuringEvent() {
-		return $this->hasEventStarted() AND !$this->hasEventEnded();
+		return $this->hasEventStarted() AND ! $this->hasEventEnded();
 	}
 
 

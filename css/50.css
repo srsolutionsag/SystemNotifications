@@ -1,18 +1,5 @@
 div#not_container {
-	 position: fixed;
-	 bottom:   0;
-	 right:    0;
-	 left:     0;
-	 z-index:  80000;
- }
-
-/*div.notHeader {*/
-	/*margin-top: 120px;*/
-	/*margin-bottom: -120px;*/
-	/*z-index: 9999;*/
-	/*position: fixed;*/
-/*}*/
-
-/*div.ilFixedTopSpacer {*/
-
-/*}*/
+	/*z-index: 1500;*/
+	margin-top: 120px !important;
+	margin-bottom: -110px !important;
+}
