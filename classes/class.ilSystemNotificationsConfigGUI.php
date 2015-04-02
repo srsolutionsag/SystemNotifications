@@ -41,7 +41,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		if (!$this->pl->isActive()) {
+		if (! $this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
 		}
 		//		notMessage::updateDB();
