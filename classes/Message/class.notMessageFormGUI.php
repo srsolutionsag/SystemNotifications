@@ -42,7 +42,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		 */
 		$this->notMessage = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-//		$this->pl->updateLanguageFiles();
+		//		$this->pl->updateLanguageFiles();
 		$this->is_new = $notMessage->getId() == 0;
 		$this->setFormAction($ilCtrl->getFormAction($parent_gui));
 		$this->initForm();
@@ -168,7 +168,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	protected function fillObject() {
-		if (!$this->checkInput()) {
+		if (! $this->checkInput()) {
 			return false;
 		}
 
@@ -226,7 +226,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool false when unsuccessful or int request_id when successful
 	 */
 	public function saveObject() {
-		if (!$this->fillObject()) {
+		if (! $this->fillObject()) {
 			return false;
 		}
 		if ($this->notMessage->getId() > 0) {
@@ -263,8 +263,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		/**
 		 * @var $rbacreview ilRbacReview
 		 */
-		$opt = array();
-		$role_ids = array();
+		$opt = array( 0 => 'Login' );
+		$role_ids = array( 0 );
 		foreach ($rbacreview->getRolesByFilter($filter) as $role) {
 			$opt[$role['obj_id']] = $role['title'] . ' (' . $role['obj_id'] . ')';
 			$role_ids[] = $role['obj_id'];

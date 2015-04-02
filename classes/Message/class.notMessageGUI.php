@@ -28,6 +28,7 @@ class notMessageGUI {
 
 
 	public function getHTML() {
+		global $ilUser;
 		$this->tpl->setVariable('TITLE', $this->message->getTitle());
 		$this->tpl->setVariable('BODY', $this->message->getBody());
 		$this->tpl->setVariable('TYPE', $this->message->getActiveType());
@@ -36,7 +37,7 @@ class notMessageGUI {
 		if (!$this->message->getPermanent()) {
 			$this->tpl->setVariable('EVENT', $this->message->getFullTimeFormated());
 		}
-		if ($this->message->getDismissable()) {
+		if ($this->message->isUserAllowedToDismiss($ilUser)) {
 			$this->tpl->setCurrentBlock('dismiss');
 			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_' . $this->message->getId());
 			$this->tpl->parseCurrentBlock();
