@@ -2,6 +2,8 @@ SystemNotifications
 ===================
 Show System-Notification-Banners to ILIAS-Users and Anonymous on every page of ILIAS.
 
+Have a look at the [full documentation](/doc/Documentation.pdf?raw=true)
+
 ###Installation
 ####Install ActiveRecord
 ILIAS 4.4 does not include ActiveRecord. Therefore please install the latest Version of active record before you install the plugin:
