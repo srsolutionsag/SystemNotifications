@@ -221,7 +221,7 @@ class notMessage extends ActiveRecord {
 	 *
 	 * @con_has_field  true
 	 * @con_fieldtype  text
-	 * @con_length     256
+	 * @con_length     4000
 	 */
 	protected $body = '';
 	/**

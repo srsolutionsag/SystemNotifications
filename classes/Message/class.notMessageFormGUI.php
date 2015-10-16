@@ -75,6 +75,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->addItem($title);
 
 		$body = new ilTextAreaInputGUI($this->txt(self::F_BODY), self::F_BODY);
+		$body->setUseRte(true);
+		$body->setRteTags(array_merge($body->getRteTags(), array('a')));
 		$this->addItem($body);
 
 		$permanent = new ilRadioGroupInputGUI($this->txt(self::F_PERMANENT), self::F_PERMANENT);
