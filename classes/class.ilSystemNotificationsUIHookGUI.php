@@ -18,6 +18,13 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	const TPL_ID = 'tpl_id';
+	/**
+	 * @var array
+	 */
+	protected static $ztpls = array(
+		'Services/Init/tpl.startup_screen.html',
+		'tpl.adm_content.html'
+	);
 
 
 	public function __construct() {
@@ -79,13 +86,8 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			);
 		}
 
-		$ztpls = array(
-			'Services/Init/tpl.startup_screen.html',
-			'tpl.adm_content.html'
-		);
-
 		// LOGIN / LOGOUT
-		if ($a_part == 'template_add' && ! self::isLoaded('const') && in_array($a_par[self::TPL_ID], $ztpls)) {
+		if ($a_part == 'template_add' && ! self::isLoaded('const') && in_array($a_par[self::TPL_ID], self::$ztpls)) {
 			global $tpl;
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
