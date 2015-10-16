@@ -90,22 +90,6 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
 			self::setLoaded('const');
-			//	$file_get_contents = file_get_contents($this->pl->getDirectory() . '/templates/default/' . basename($a_par[self::TPL_ID]));
-			//			$result = preg_replace("/{SYSTEM_NOTIFICATIONS}/uim", $this->getNotificatiosHTML(), $file_get_contents);
-			//			libxml_use_internal_errors(true);
-			//			$dom = new DOMDocument();
-			//			$dom->loadHTML($a_par['html']);
-			//			$dom->loadHTML($file_get_contents);
-			//			$result = $dom->saveHTML();
-			//			libxml_clear_errors();
-			//
-			//			$result = '';
-			//			$html = str_get_html($a_par['html']);
-			//
-			//			return array(
-			//				'mode' => ilUIHookPluginGUI::REPLACE,
-			//				'html' => $result,
-			//			);
 		}
 
 		return array(
