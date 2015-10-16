@@ -1,12 +1,15 @@
-<div id="not_id_{ID}" class="not_message not_pos_{POSITION} not_type_{TYPE} {ADD_CSS}">
-	<!-- BEGIN link_title -->
-	<h1 class="not_title"><a href="{LINK}">{TITLE}</a></h1>
-	<!-- END link_title -->
-	<h1 class="not_title">{TITLE}</h1>
-	<p class="not_body">{BODY}</p>
+<div class="xnot-alert alert {ALERT_TYPE} {ADD_CSS}" role="alert">
 	<!-- BEGIN dismiss -->
-	<span class="not_dismiss"><a href="{DISMISS_LINK}">&times;</a></span>
-	<!-- END dismiss -->    <!-- BEGIN permanent -->
-	<span class="not_event">{EVENT}</span>
-	<!-- END permanent -->
+	<a type="button" class="btn close" href="{DISMISS_LINK}"><i class="glyphicon glyphicon-remove"></i> </a>
+	<!-- END dismiss -->
+	<a type="button" class="btn close xnot-show-more" href="#"><i class="glyphicon glyphicon-arrow-down"></i> </a>
+	<a type="button" class="btn close xnot-show-less" href="#"><i class="glyphicon glyphicon-arrow-up"></i> </a>
+	<strong>{TITLE}</strong>
+	<span class="xnot-body">{BODY}</span>
+	<!-- BEGIN event -->
+	<span class="label label-default">{EVENT}</span>
+	<!-- END event -->
 </div>
+
+
+

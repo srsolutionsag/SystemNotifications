@@ -1,0 +1,40 @@
+#xnot_container {
+  .alert {
+	.xnot-show-more, .xnot-show-less {
+	  display: none;
+	}
+  }
+}
+
+@media (max-width: 768px) {
+  #xnot_container {
+	.alert {
+	  strong, span.xnot-body {
+		text-overflow: ellipsis;
+		white-space:   nowrap;
+		overflow:      hidden;
+		width:         auto;
+		display:       block;
+	  }
+	}
+
+	.xnot-content-hidden {
+	  .xnot-show-more {
+		display: block;
+	  }
+	}
+
+	.xnot-content-shown {
+	  .xnot-show-less {
+		display: block;
+	  }
+
+	  strong, span.xnot-body {
+		text-overflow: clip;
+		white-space:   normal;
+		overflow:      visible;
+		display:       block;
+	  }
+	}
+  }
+}

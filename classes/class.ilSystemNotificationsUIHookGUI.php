@@ -18,9 +18,6 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	const TPL_ID = 'tpl_id';
-	const SERVICES_INIT_TPL_LOGIN_HTML = 'Services/Init/tpl.login.html';
-	const TPL_ADM_CONTENT_HTML = 'tpl.adm_content.html';
-	const SERVICES_INIT_TPL_LOGOUT_HTML = 'Services/Init/tpl.logout.html';
 
 
 	public function __construct() {
@@ -40,7 +37,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @return bool
 	 */
 	protected static function isLoaded($key) {
-		return self::$loaded[$key] == 1;
+		return (self::$loaded[$key] == 1);
 	}
 
 
@@ -71,48 +68,50 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		 * @var $tpl          ilTemplate
 		 * @var $ilToolbar    ilToolbarGUI
 		 */
-		if (sysnotConfig::is50()) {
-			//			if ($a_par[self::TPL_ID] == 'Services/UICore/tpl.footer.html' AND ! self::isLoaded('const')) {
-			//			var_dump($a_par[self::TPL_ID]); // FSX
-			// tpl.statusline.html
-			$tpls = array(
-				self::TPL_ADM_CONTENT_HTML,
-				self::SERVICES_INIT_TPL_LOGIN_HTML,
-				self::SERVICES_INIT_TPL_LOGOUT_HTML,
+
+		if ($a_part == 'template_show') {
+			$result = $a_par['html'];
+			$result = preg_replace("/<div(.*)mainspacekeeper(.*)>.*\\n/uimx", "<div$1mainspacekeeper$2>\n" . $this->getNotificatiosHTML(), $result);
+
+			return array(
+				'mode' => ilUIHookPluginGUI::REPLACE,
+				'html' => $result,
 			);
-			$tpls_wo_css = array(
-				self::SERVICES_INIT_TPL_LOGIN_HTML,
-				self::SERVICES_INIT_TPL_LOGOUT_HTML,
-			);
-
-			if (in_array($a_par[self::TPL_ID], $tpls) AND ! self::isLoaded('const')) {
-				$css = $this->getCss('notifications');
-				if (! in_array($a_par[self::TPL_ID], $tpls_wo_css)) {
-					$css .= $this->getCss('50');
-				}
-
-				self::setLoaded('const');
-
-				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
-			}
-		} elseif (sysnotConfig::is44()) {
-			$part = ($a_par[self::TPL_ID] == 'Services/Init/tpl.startup_screen.html' OR $a_par[self::TPL_ID] == self::TPL_ADM_CONTENT_HTML);
-			if ($part AND ! self::isLoaded('const')) {
-				if ($_SERVER['SCRIPT_NAME'] != '/goto.php') {
-					self::setLoaded('const');
-				}
-				if (self::$goto_num != 0) {
-					self::setLoaded('const');
-				}
-				self::$goto_num ++;
-
-				$css = $this->getCss('notifications');
-
-				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $css . $this->getNotificatiosHTML() );
-			}
 		}
 
-		return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
+		$ztpls = array(
+			'Services/Init/tpl.startup_screen.html',
+			'tpl.adm_content.html'
+		);
+
+		// LOGIN / LOGOUT
+		if ($a_part == 'template_add' && ! self::isLoaded('const') && in_array($a_par[self::TPL_ID], $ztpls)) {
+			global $tpl;
+			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
+			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
+			self::setLoaded('const');
+			//	$file_get_contents = file_get_contents($this->pl->getDirectory() . '/templates/default/' . basename($a_par[self::TPL_ID]));
+			//			$result = preg_replace("/{SYSTEM_NOTIFICATIONS}/uim", $this->getNotificatiosHTML(), $file_get_contents);
+			//			libxml_use_internal_errors(true);
+			//			$dom = new DOMDocument();
+			//			$dom->loadHTML($a_par['html']);
+			//			$dom->loadHTML($file_get_contents);
+			//			$result = $dom->saveHTML();
+			//			libxml_clear_errors();
+			//
+			//			$result = '';
+			//			$html = str_get_html($a_par['html']);
+			//
+			//			return array(
+			//				'mode' => ilUIHookPluginGUI::REPLACE,
+			//				'html' => $result,
+			//			);
+		}
+
+		return array(
+			'mode' => ilUIHookPluginGUI::KEEP,
+			'html' => ''
+		);
 	}
 
 
@@ -127,18 +126,6 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		$notifications = new notMessageListGUI($notMessageList);
 
 		return $notifications->getHTML();
-	}
-
-
-	/**
-	 * @return string
-	 */
-	protected function getCss($file = 'notifications') {
-		$css =
-			'<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/css/'
-			. $file . '.css">';
-
-		return $css;
 	}
 
 
