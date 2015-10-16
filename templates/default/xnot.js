@@ -25,12 +25,16 @@ var xNotification = {
 	},
 	initClasses: function () {
 		$('.xnot-alert').each(function () {
-			var strong = $(this).find('strong');
+			var strong = $(this).find('strong.xnot-title');
 			var xnot_body = $(this).find('span.xnot-body');
+			var xnot_body_p = $(this).find('span.xnot-body p');
 			if (strong[0].scrollWidth > strong.innerWidth()) {
 				$(this).addClass('xnot-content-hidden');
 			}
 			if (xnot_body[0].scrollWidth > xnot_body.innerWidth()) {
+				$(this).addClass('xnot-content-hidden');
+			}
+			if (xnot_body_p[0].scrollWidth > xnot_body_p.innerWidth()) {
 				$(this).addClass('xnot-content-hidden');
 			}
 		});
