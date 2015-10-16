@@ -23,7 +23,6 @@ notMessage::updateDB();
  * @var $ilDB ilDB
  */
 $ilDB->modifyTableColumn(notMessage::returnDbTableName(), 'body', array(
-	"type" => "text",
-	"length" => 4000
+	"type" => "clob"
 ));
 ?>

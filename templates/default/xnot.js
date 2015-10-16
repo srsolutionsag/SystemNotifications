@@ -11,6 +11,7 @@ var xNotification = {
 		self.register();
 	},
 	register: function () {
+		var self = this;
 		$(window).on('resize', function () {
 			self.initClasses();
 		});
