@@ -24,7 +24,7 @@ class notMessageTableGUI extends ilTable2GUI {
 		 * @var $ilToolbar ilToolbarGUI
 		 */
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-//		$this->pl->updateLanguageFiles();
+		//		$this->pl->updateLanguageFiles();
 		$this->ctrl = $ilCtrl;
 		$this->tabs = $ilTabs;
 		$this->setId('msg_msg_table');
@@ -67,10 +67,13 @@ class notMessageTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable('TITLE', $notMessage->getTitle());
 		$this->tpl->setVariable('TYPE', $this->pl->txt('msg_type_' . $notMessage->getType()));
 		$this->tpl->setVariable('TYPE_DURING_EVENT', $this->pl->txt('msg_type_' . $notMessage->getTypeDuringEvent()));
-		$this->tpl->setVariable('EVENT_START', $a_set['event_start']);
-		$this->tpl->setVariable('EVENT_END', $a_set['event_end']);
-		$this->tpl->setVariable('DISPLAY_START', $a_set['display_start']);
-		$this->tpl->setVariable('DISPLAY_END', $a_set['display_end']);
+
+		if (! $notMessage->getPermanent()) {
+			$this->tpl->setVariable('EVENT_START', $a_set['event_start']);
+			$this->tpl->setVariable('EVENT_END', $a_set['event_end']);
+			$this->tpl->setVariable('DISPLAY_START', $a_set['display_start']);
+			$this->tpl->setVariable('DISPLAY_END', $a_set['display_end']);
+		}
 
 		$this->ctrl->setParameter($this->parent_obj, ilSystemNotificationsConfigGUI::NOT_MSG_ID, $notMessage->getId());
 		$actions = new ilAdvancedSelectionListGUI();

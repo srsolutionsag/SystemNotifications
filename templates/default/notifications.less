@@ -1,0 +1,61 @@
+@import "../../../../../../../../../Services/UICore/lib/bootstrap-3.2.0/less/variables.less";
+
+.alert-link(@text-color) {
+  a {
+	color:           darken(@text-color, 10%);
+	text-decoration: underline;
+  }
+}
+
+#xnot_container {
+  .alert {
+	.xnot-show-more, .xnot-show-less {
+	  display: none;
+	}
+  }
+  .alert-warning {
+	.alert-link(@alert-warning-text);
+  }
+  .alert-success {
+	.alert-link(@alert-success-text);
+  }
+  .alert-danger {
+	.alert-link(@alert-danger-text);
+  }
+  .alert-info {
+	.alert-link(@alert-info-text);
+  }
+}
+
+@media (max-width: 768px) {
+  #xnot_container {
+	.alert {
+	  strong.xnot-title, span.xnot-body, span.xnot-body p {
+		text-overflow: ellipsis;
+		white-space:   nowrap;
+		overflow:      hidden;
+		width:         auto;
+		display:       block;
+	  }
+	}
+
+	.xnot-content-hidden {
+	  .xnot-show-more {
+		display: block;
+	  }
+	}
+
+	.xnot-content-shown {
+	  .xnot-show-less {
+		display: block;
+	  }
+
+	  strong.xnot-title, span.xnot-body, span.xnot-body p {
+		text-overflow: clip;
+		white-space:   normal;
+		overflow:      visible;
+		display:       block;
+	  }
+	}
+  }
+}

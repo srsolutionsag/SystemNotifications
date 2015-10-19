@@ -44,8 +44,6 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		if (! $this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
 		}
-		//		notMessage::updateDB();
-		//				$this->pl->updateLanguageFiles();
 		$this->ctrl->setParameter($this, self::NOT_MSG_ID, $_REQUEST[self::NOT_MSG_ID]);
 		$this->notMessage = notMessage::find($_GET[self::NOT_MSG_ID]);
 	}

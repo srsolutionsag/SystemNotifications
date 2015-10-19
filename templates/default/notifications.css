@@ -1,0 +1,45 @@
+#xnot_container .alert .xnot-show-more,
+#xnot_container .alert .xnot-show-less {
+  display: none;
+}
+#xnot_container .alert-warning a {
+  color: #66512c;
+  text-decoration: underline;
+}
+#xnot_container .alert-success a {
+  color: #2b542c;
+  text-decoration: underline;
+}
+#xnot_container .alert-danger a {
+  color: #843534;
+  text-decoration: underline;
+}
+#xnot_container .alert-info a {
+  color: #245269;
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  #xnot_container .alert strong.xnot-title,
+  #xnot_container .alert span.xnot-body,
+  #xnot_container .alert span.xnot-body p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: auto;
+    display: block;
+  }
+  #xnot_container .xnot-content-hidden .xnot-show-more {
+    display: block;
+  }
+  #xnot_container .xnot-content-shown .xnot-show-less {
+    display: block;
+  }
+  #xnot_container .xnot-content-shown strong.xnot-title,
+  #xnot_container .xnot-content-shown span.xnot-body,
+  #xnot_container .xnot-content-shown span.xnot-body p {
+    text-overflow: clip;
+    white-space: normal;
+    overflow: visible;
+    display: block;
+  }
+}

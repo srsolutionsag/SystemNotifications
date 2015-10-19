@@ -29,6 +29,17 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @var notMessage
 	 */
 	protected $notMessage;
+	/**
+	 * @var array
+	 */
+	protected static $tags = array(
+		'a',
+		'strong',
+		'ol',
+		'ul',
+		'li',
+		'p',
+	);
 
 
 	/**
@@ -75,6 +86,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->addItem($title);
 
 		$body = new ilTextAreaInputGUI($this->txt(self::F_BODY), self::F_BODY);
+		$body->setUseRte(true);
+		$body->setRteTags(self::$tags);
 		$this->addItem($body);
 
 		$permanent = new ilRadioGroupInputGUI($this->txt(self::F_PERMANENT), self::F_PERMANENT);
@@ -253,7 +266,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param int  $filter
+	 * @param int $filter
 	 * @param bool $with_text
 	 *
 	 * @return array
