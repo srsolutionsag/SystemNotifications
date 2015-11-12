@@ -13,7 +13,7 @@ class notMessage extends ActiveRecord {
 	const POS_RIGHT = 2;
 	const POST_LEFT = 3;
 	const POS_BOTTOM = 4;
-	const DATE_FORMAT = 'd.m.Y H:i:s';
+	const DATE_FORMAT = 'd.m.Y H:i';
 	const TYPE_INFO = 1;
 	const TYPE_WARNING = 2;
 	const TYPE_ERROR = 3;
