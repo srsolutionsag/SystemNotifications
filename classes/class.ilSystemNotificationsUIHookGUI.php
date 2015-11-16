@@ -78,7 +78,12 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 		if ($a_part == 'template_show') {
 			$result = $a_par['html'];
-			$result = preg_replace("/<div(.*)mainspacekeeper(.*)>.*\\n/uimx", "<div$1mainspacekeeper$2>\n" . $this->getNotificatiosHTML(), $result);
+			$result = preg_replace("/<div([\\w =\"_\\-]*)mainspacekeeper([\\w =\"_\\-]*)>/uiUmx", "<div$1mainspacekeeper$2>"
+				. $this->getNotificatiosHTML(), $result);
+
+			if (!$result) {
+				$result = $a_par['html'];
+			}
 
 			return array(
 				'mode' => ilUIHookPluginGUI::REPLACE,
