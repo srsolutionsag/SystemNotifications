@@ -13,7 +13,9 @@ class notMessage extends ActiveRecord {
 	const POS_RIGHT = 2;
 	const POST_LEFT = 3;
 	const POS_BOTTOM = 4;
-	const DATE_FORMAT = 'd.m.Y H:i:s';
+	const DATE_FORMAT = 'd.m.Y';
+	const TIME_FORMAT = 'H:i';
+	const DATE_TIME_FORMAT = 'd.m.Y H:i';
 	const TYPE_INFO = 1;
 	const TYPE_WARNING = 2;
 	const TYPE_ERROR = 3;
@@ -80,7 +82,11 @@ class notMessage extends ActiveRecord {
 	 * @return string
 	 */
 	public function getFullTimeFormated() {
-		return date(self::DATE_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_FORMAT, $this->getEventEnd());
+		if(date(self::DATE_FORMAT, $this->getEventStart()) == date(self::DATE_FORMAT, $this->getEventEnd())) {
+			return date(self::DATE_FORMAT, $this->getEventEnd()). ', '.date(self::TIME_FORMAT, $this->getEventStart())." - ".date(self::TIME_FORMAT, $this->getEventEnd());
+		} else {
+			return date(self::DATE_TIME_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_TIME_FORMAT, $this->getEventEnd());
+		}
 	}
 
 
