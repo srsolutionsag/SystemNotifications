@@ -167,13 +167,17 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		 * @var $f_event_date   ilDateDurationInputGUI
 		 * @var $f_display_date ilDateDurationInputGUI
 		 */
-		$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
-		$f_event_date->setStart(new ilDateTime($this->notMessage->getEventStart(), IL_CAL_UNIX));
-		$f_event_date->setEnd(new ilDateTime($this->notMessage->getEventEnd(), IL_CAL_UNIX));
+		if ($eventStart = $this->notMessage->getEventStart()) {
+			$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
+			$f_event_date->setStart(new ilDateTime($eventStart, IL_CAL_UNIX));
+			$f_event_date->setEnd(new ilDateTime($this->notMessage->getEventEnd(), IL_CAL_UNIX));
+		}
 
-		$f_display_date = $this->getItemByPostVar(self::F_DISPLAY_DATE);
-		$f_display_date->setStart(new ilDateTime($this->notMessage->getDisplayStart(), IL_CAL_UNIX));
-		$f_display_date->setEnd(new ilDateTime($this->notMessage->getDisplayEnd(), IL_CAL_UNIX));
+		if ($displayStart = $this->notMessage->getDisplayStart()) {
+			$f_display_date = $this->getItemByPostVar(self::F_DISPLAY_DATE);
+			$f_display_date->setStart(new ilDateTime($displayStart, IL_CAL_UNIX));
+			$f_display_date->setEnd(new ilDateTime($this->notMessage->getDisplayEnd(), IL_CAL_UNIX));
+		}
 	}
 
 
