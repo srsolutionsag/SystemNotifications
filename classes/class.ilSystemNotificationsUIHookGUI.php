@@ -87,7 +87,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		// LOGIN / LOGOUT
-		if ($a_part == 'template_add' && ! self::isLoaded('const') && in_array($a_par[self::TPL_ID], self::$ztpls)) {
+		if ($a_part == 'template_add' && !self::isLoaded('const') && in_array($a_par[self::TPL_ID], self::$ztpls)) {
 			global $tpl;
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');

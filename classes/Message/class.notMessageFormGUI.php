@@ -181,7 +181,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool
 	 */
 	protected function fillObject() {
-		if (! $this->checkInput()) {
+		if (!$this->checkInput()) {
 			return false;
 		}
 
@@ -239,7 +239,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return bool false when unsuccessful or int request_id when successful
 	 */
 	public function saveObject() {
-		if (! $this->fillObject()) {
+		if (!$this->fillObject()) {
 			return false;
 		}
 		if ($this->notMessage->getId() > 0) {
