@@ -1,0 +1,189 @@
+{
+    "plugin_prefix": "ui_uihk_sys_not",
+    "languages": [
+        "en"
+    ],
+    "entries": {
+        "msg": {
+            "title": {
+                "translations": {
+                    "en": "Title"
+                },
+                "last_used": "15.02.2017"
+            },
+            "type": {
+                "translations": {
+                    "en": "Type"
+                },
+                "last_used": "15.02.2017"
+            },
+            "type_during_event": {
+                "translations": {
+                    "en": "Type during Event"
+                },
+                "last_used": "15.02.2017"
+            },
+            "type_1": {
+                "translations": {
+                    "en": "Info"
+                }
+            },
+            "type_2": {
+                "translations": {
+                    "en": "Warning"
+                }
+            },
+            "type_3": {
+                "translations": {
+                    "en": "Important"
+                }
+            },
+            "event_start": {
+                "translations": {
+                    "en": "Event start"
+                },
+                "last_used": "15.02.2017"
+            },
+            "event_end": {
+                "translations": {
+                    "en": "Event end"
+                },
+                "last_used": "15.02.2017"
+            },
+            "display_start": {
+                "translations": {
+                    "en": "Display start"
+                },
+                "last_used": "15.02.2017"
+            },
+            "display_end": {
+                "translations": {
+                    "en": "Display end"
+                },
+                "last_used": "15.02.2017"
+            },
+            "permanent": {
+                "translations": {
+                    "en": "Display"
+                }
+            },
+            "permanent_no": {
+                "translations": {
+                    "en": "Show temporary"
+                }
+            },
+            "permanent_yes": {
+                "translations": {
+                    "en": "Show permanent"
+                }
+            },
+            "prevent_login": {
+                "translations": {
+                    "en": "Prevent Login"
+                }
+            },
+            "additional_classes": {
+                "translations": {
+                    "en": "Additional CSS-Classes"
+                }
+            },
+            "allowed_users": {
+                "translations": {
+                    "en": "Allowed User-IDs (comma-separated)"
+                }
+            },
+            "table_title": {
+                "translations": {
+                    "en": "Messages"
+                },
+                "last_used": "15.02.2017"
+            },
+            "body": {
+                "translations": {
+                    "en": "Body"
+                }
+            },
+            "event_date": {
+                "translations": {
+                    "en": "Event date"
+                }
+            },
+            "display_date": {
+                "translations": {
+                    "en": "Duration display"
+                }
+            },
+            "form_button_save": {
+                "translations": {
+                    "en": "Save"
+                }
+            },
+            "form_button_update": {
+                "translations": {
+                    "en": "Update"
+                }
+            },
+            "form_button_cancel": {
+                "translations": {
+                    "en": "Cancel"
+                }
+            },
+            "form_button_delete": {
+                "translations": {
+                    "en": "Delete"
+                }
+            },
+            "form_title": {
+                "translations": {
+                    "en": "Compose message"
+                }
+            },
+            "success": {
+                "translations": {
+                    "en": "Success"
+                }
+            },
+            "dismissable": {
+                "translations": {
+                    "en": "Dismissable"
+                }
+            },
+            "limit_to_roles": {
+                "translations": {
+                    "en": "Limit to Roles"
+                }
+            },
+            "limited_to_role_ids": {
+                "translations": {
+                    "en": "Roles"
+                }
+            },
+            "reset_dismiss": {
+                "translations": {
+                    "en": "Reset for all users"
+                }
+            }
+        },
+        "common": {
+            "actions": {
+                "translations": {
+                    "en": "Actions"
+                },
+                "last_used": "15.02.2017"
+            },
+            "add_msg": {
+                "translations": {
+                    "en": "Add message"
+                },
+                "last_used": "15.02.2017"
+            }
+        },
+        "": {
+            "": {
+                "translations": {
+                    "en": "MISSING"
+                }
+            }
+        }
+    }
+}
