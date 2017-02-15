@@ -28,6 +28,11 @@ msg_dismissable#:#Dismissable
 msg_limit_to_roles#:#Limit to Roles
 msg_limited_to_role_ids#:#Roles
 msg_reset_dismiss#:#Reset for all users
+msg_position#:#Position
+msg_position_1#:#Position 1
+msg_position_3#:#Position 2
+msg_position_2#:#Position 3
+msg_position_4#:#Position 4
 common_actions#:#Actions
 common_add_msg#:#Add message
 _#:#MISSING

@@ -26,17 +26,20 @@
             "type_1": {
                 "translations": {
                     "en": "Info"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "type_2": {
                 "translations": {
                     "en": "Warning"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "type_3": {
                 "translations": {
                     "en": "Important"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "event_start": {
                 "translations": {
@@ -65,32 +68,38 @@
             "permanent": {
                 "translations": {
                     "en": "Display"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "permanent_no": {
                 "translations": {
                     "en": "Show temporary"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "permanent_yes": {
                 "translations": {
                     "en": "Show permanent"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "prevent_login": {
                 "translations": {
                     "en": "Prevent Login"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "additional_classes": {
                 "translations": {
                     "en": "Additional CSS-Classes"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "allowed_users": {
                 "translations": {
                     "en": "Allowed User-IDs (comma-separated)"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "table_title": {
                 "translations": {
@@ -101,22 +110,26 @@
             "body": {
                 "translations": {
                     "en": "Body"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "event_date": {
                 "translations": {
                     "en": "Event date"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "display_date": {
                 "translations": {
                     "en": "Duration display"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "form_button_save": {
                 "translations": {
                     "en": "Save"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "form_button_update": {
                 "translations": {
@@ -126,7 +139,8 @@
             "form_button_cancel": {
                 "translations": {
                     "en": "Cancel"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "form_button_delete": {
                 "translations": {
@@ -136,32 +150,67 @@
             "form_title": {
                 "translations": {
                     "en": "Compose message"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "success": {
                 "translations": {
                     "en": "Success"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "dismissable": {
                 "translations": {
                     "en": "Dismissable"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "limit_to_roles": {
                 "translations": {
                     "en": "Limit to Roles"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "limited_to_role_ids": {
                 "translations": {
                     "en": "Roles"
-                }
+                },
+                "last_used": "15.02.2017"
             },
             "reset_dismiss": {
                 "translations": {
                     "en": "Reset for all users"
                 }
+            },
+            "position": {
+                "translations": {
+                    "en": "Position"
+                },
+                "last_used": "15.02.2017"
+            },
+            "position_1": {
+                "translations": {
+                    "en": "Position 1"
+                },
+                "last_used": "15.02.2017"
+            },
+            "position_3": {
+                "translations": {
+                    "en": "Position 2"
+                },
+                "last_used": "15.02.2017"
+            },
+            "position_2": {
+                "translations": {
+                    "en": "Position 3"
+                },
+                "last_used": "15.02.2017"
+            },
+            "position_4": {
+                "translations": {
+                    "en": "Position 4"
+                },
+                "last_used": "15.02.2017"
             }
         },
         "common": {

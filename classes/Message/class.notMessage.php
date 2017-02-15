@@ -30,6 +30,7 @@ class notMessage extends ActiveRecord {
 	protected static $allowed_user_ids = array( 0, 13, 6 );
 
 
+
 	/**
 	 * @return string
 	 * @description Return the Name of your Database Table
