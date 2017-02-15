@@ -13,7 +13,7 @@ class notMessageTableGUI extends ilTable2GUI {
 
 	/**
 	 * @param ilSystemNotificationsConfigGUI $a_parent_obj
-	 * @param string                         $a_parent_cmd
+	 * @param string $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
 		global $ilCtrl, $ilTabs;
@@ -66,9 +66,10 @@ class notMessageTableGUI extends ilTable2GUI {
 		$notMessage = notMessage::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $notMessage->getTitle());
 		$this->tpl->setVariable('TYPE', $this->pl->txt('msg_type_' . $notMessage->getType()));
-		$this->tpl->setVariable('TYPE_DURING_EVENT', $this->pl->txt('msg_type_' . $notMessage->getTypeDuringEvent()));
+		$this->tpl->setVariable('TYPE_DURING_EVENT', $this->pl->txt('msg_type_'
+		                                                            . $notMessage->getTypeDuringEvent()));
 
-		if (! $notMessage->getPermanent()) {
+		if (!$notMessage->getPermanent()) {
 			$this->tpl->setVariable('EVENT_START', $a_set['event_start']);
 			$this->tpl->setVariable('EVENT_END', $a_set['event_end']);
 			$this->tpl->setVariable('DISPLAY_START', $a_set['display_start']);
@@ -87,5 +88,3 @@ class notMessageTableGUI extends ilTable2GUI {
 		$this->tpl->setVariable('ACTIONS', $actions->getHTML());
 	}
 }
-
-?>

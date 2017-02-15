@@ -1,4 +1,5 @@
 <?php
+require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php');
 
 /**
@@ -63,7 +64,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function hasUserDismissed(ilObjUser $ilObjUser) {
-		if (! $this->getDismissable()) {
+		if (!$this->getDismissable()) {
 			return false;
 		}
 
@@ -72,7 +73,8 @@ class notMessage extends ActiveRecord {
 
 
 	public function resetForAllUsers() {
-		foreach (sysnotDismiss::where(array( 'notification_id' => $this->getId() ))->get() as $not) {
+		foreach (sysnotDismiss::where(array( 'notification_id' => $this->getId() ))
+		                      ->get() as $not) {
 			$not->delete();
 		}
 	}
@@ -82,10 +84,15 @@ class notMessage extends ActiveRecord {
 	 * @return string
 	 */
 	public function getFullTimeFormated() {
-		if(date(self::DATE_FORMAT, $this->getEventStart()) == date(self::DATE_FORMAT, $this->getEventEnd())) {
-			return date(self::DATE_FORMAT, $this->getEventEnd()). ', '.date(self::TIME_FORMAT, $this->getEventStart())." - ".date(self::TIME_FORMAT, $this->getEventEnd());
+		if (date(self::DATE_FORMAT, $this->getEventStart())
+		    == date(self::DATE_FORMAT, $this->getEventEnd())
+		) {
+			return date(self::DATE_FORMAT, $this->getEventEnd()) . ', '
+			       . date(self::TIME_FORMAT, $this->getEventStart()) . " - "
+			       . date(self::TIME_FORMAT, $this->getEventEnd());
 		} else {
-			return date(self::DATE_TIME_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_TIME_FORMAT, $this->getEventEnd());
+			return date(self::DATE_TIME_FORMAT, $this->getEventStart()) . ' - '
+			       . date(self::DATE_TIME_FORMAT, $this->getEventEnd());
 		}
 	}
 
@@ -96,7 +103,8 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isUserAllowedToDismiss(ilObjUser $ilUser) {
-		return ($this->getDismissable() AND $ilUser->getId() != 0 AND $ilUser->getId() != ANONYMOUS_USER_ID);
+		return ($this->getDismissable() AND $ilUser->getId() != 0 AND $ilUser->getId()
+		                                                              != ANONYMOUS_USER_ID);
 	}
 
 
@@ -107,10 +115,10 @@ class notMessage extends ActiveRecord {
 		if ($this->getPermanent()) {
 			return $this->getType();
 		}
-		if ($this->hasEventStarted() AND ! $this->hasEventEnded()) {
+		if ($this->hasEventStarted() AND !$this->hasEventEnded()) {
 			return $this->getTypeDuringEvent();
 		}
-		if ($this->hasDisplayStarted() AND ! $this->hasDisplayEnded()) {
+		if ($this->hasDisplayStarted() AND !$this->hasDisplayEnded()) {
 			return $this->getType();
 		}
 	}
@@ -125,8 +133,8 @@ class notMessage extends ActiveRecord {
 		}
 		$hasEventStarted = $this->hasEventStarted();
 		$hasDisplayStarted = $this->hasDisplayStarted();
-		$hasEventEnded = ! $this->hasEventEnded();
-		$hasDisplayEnded = ! $this->hasDisplayEnded();
+		$hasEventEnded = !$this->hasEventEnded();
+		$hasDisplayEnded = !$this->hasDisplayEnded();
 
 		return ($hasEventStarted OR $hasDisplayStarted) AND ($hasEventEnded OR $hasDisplayEnded);
 	}
@@ -138,14 +146,14 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isVisibleForUser(ilObjUser $ilObjUser) {
-		if (! $this->isVisible()) {
+		if (!$this->isVisible()) {
 
 			return false;
 		}
 		if ($this->hasUserDismissed($ilObjUser)) {
 			return false;
 		}
-		if (! $this->isVisibleRoleUserRoles($ilObjUser)) {
+		if (!$this->isVisibleRoleUserRoles($ilObjUser)) {
 			return false;
 		}
 
@@ -159,7 +167,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function isVisibleRoleUserRoles(ilObjUser $ilObjUser) {
-		if (! $this->isLimitToRoles()) {
+		if (!$this->isLimitToRoles()) {
 			return true;
 		}
 		global $rbacreview;
@@ -193,7 +201,7 @@ class notMessage extends ActiveRecord {
 		}
 		if ($this->getPreventLogin()) {
 			if ($this->isDuringEvent() OR $this->getPermanent()) {
-				if (! in_array($ilObjUser->getId(), $this->getAllowedUsers())) {
+				if (!in_array($ilObjUser->getId(), $this->getAllowedUsers())) {
 					return false;
 				}
 			}
@@ -328,7 +336,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $parent_id = NULL;
+	protected $parent_id = null;
 	/**
 	 * @var int
 	 *
@@ -350,7 +358,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $created_by = NULL;
+	protected $created_by = null;
 	/**
 	 * @var int
 	 *
@@ -358,7 +366,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $last_update_by = NULL;
+	protected $last_update_by = null;
 	/**
 	 * @var bool
 	 *
@@ -426,11 +434,11 @@ class notMessage extends ActiveRecord {
 				return strtotime($field_value);
 				break;
 			case 'allowed_users':
-				if ($field_value === NULL) {
+				if ($field_value === null) {
 					$array_unique = self::$allowed_user_ids;
 				} else {
 					$json_decode = json_decode($field_value, true);
-					if (! is_array($json_decode)) {
+					if (!is_array($json_decode)) {
 						$json_decode = self::$allowed_user_ids;
 					}
 					$array_unique = array_unique($json_decode);
@@ -769,7 +777,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	protected function isDuringEvent() {
-		return $this->hasEventStarted() AND ! $this->hasEventEnded();
+		return $this->hasEventStarted() AND !$this->hasEventEnded();
 	}
 
 
@@ -927,7 +935,7 @@ class notMessage extends ActiveRecord {
 
 
 	/**
-	 * @return sint
+	 * @return int
 	 */
 	public function getLinkType() {
 		return $this->link_type;
@@ -935,7 +943,7 @@ class notMessage extends ActiveRecord {
 
 
 	/**
-	 * @param sint $link_type
+	 * @param int $link_type
 	 */
 	public function setLinkType($link_type) {
 		$this->link_type = $link_type;
@@ -957,5 +965,3 @@ class notMessage extends ActiveRecord {
 		$this->link_target = $link_target;
 	}
 }
-
-?>

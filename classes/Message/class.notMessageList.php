@@ -19,12 +19,12 @@ class notMessageList extends ActiveRecordList {
 	public function check(ilObjUser $ilUser) {
 		$show = true;
 		foreach ($this->getActive() as $not) {
-			if (! $not->isUserAllowed($ilUser)) {
+			if (!$not->isUserAllowed($ilUser)) {
 				$show = false;
 			}
 		}
 
-		if (! $show) {
+		if (!$show) {
 			global $ilAuth;
 			/**
 			 * @var $ilAuth ilAuthWeb
@@ -50,10 +50,10 @@ class notMessageList extends ActiveRecordList {
 	 * @return notMessage[]
 	 */
 	public function getActive() {
-//		$this->reset();
-//		$this->where(array( 'active' => 1 ));
+		//		$this->reset();
+		//		$this->where(array( 'active' => 1 ));
 		//				$this->leftjoin(sysnotDismiss::TABLE_NAME, 'id', 'notification_id');
-//						$this->debug();
+		//						$this->debug();
 
 		return self::get();
 	}
@@ -74,5 +74,3 @@ class notMessageList extends ActiveRecordList {
 		$this->getArSelectCollection()->add($arSelect);
 	}
 }
-
-?>
