@@ -21,6 +21,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	const F_POSITION = 'position';
 	const F_ADDITIONAL_CLASSES = 'additional_classes';
 	const F_PREVENT_LOGIN = 'prevent_login';
+	const F_INTERRUPTIVE = 'interruptive';
 	const F_ALLOWED_USERS = 'allowed_users';
 	const F_DISMISSABLE = 'dismissable';
 	const F_LIMIT_TO_ROLES = 'limit_to_roles';
@@ -143,6 +144,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$prevent_login->addSubItem($allowed_users);
 		$this->addItem($prevent_login);
 
+		$prevent_login = new ilCheckboxInputGUI($this->txt(self::F_INTERRUPTIVE), self::F_INTERRUPTIVE);
+		$this->addItem($prevent_login);
+
 		$this->addButtons();
 	}
 
@@ -161,6 +165,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 			self::F_DISMISSABLE         => $this->notMessage->getDismissable(),
 			self::F_LIMIT_TO_ROLES      => $this->notMessage->isLimitToRoles(),
 			self::F_LIMITED_TO_ROLE_IDS => $this->notMessage->getLimitedToRoleIds(),
+			self::F_INTERRUPTIVE        => $this->notMessage->isInterruptive(),
 		);
 		$this->setValuesByArray($array);
 		/**
@@ -201,6 +206,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setDismissable($this->getInput(self::F_DISMISSABLE));
 		$this->notMessage->setLimitToRoles($this->getInput(self::F_LIMIT_TO_ROLES));
 		$this->notMessage->setLimitedToRoleIds($this->getInput(self::F_LIMITED_TO_ROLE_IDS));
+		$this->notMessage->setInterruptive($this->getInput(self::F_INTERRUPTIVE));
 
 		/**
 		 * @var $f_event_date   ilDateDurationInputGUI

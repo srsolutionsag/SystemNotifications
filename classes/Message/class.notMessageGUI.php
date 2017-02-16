@@ -52,6 +52,9 @@ class notMessageGUI {
 		if (!$this->message->getPermanent()) {
 			$this->tpl->setVariable('EVENT', $this->message->getFullTimeFormated());
 		}
+		if ($this->message->isInterruptive()) {
+			$this->tpl->setVariable('INTERRUPTIVE', 'interruptive');
+		}
 		if ($this->message->isUserAllowedToDismiss($ilUser)) {
 			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_'
 			                                        . $this->message->getId());

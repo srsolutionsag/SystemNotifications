@@ -117,6 +117,9 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function getNotificatiosHTML() {
 		global $ilUser;
+		if (!$ilUser instanceof ilObjUser) {
+			return null;
+		}
 
 		$notMessageList = new notMessageList();
 		$notMessageList->check($ilUser);
@@ -133,7 +136,9 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			 * @var $notMessage notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
-			if ($notMessage instanceof notMessage) {
+			if ($notMessage instanceof notMessage && $ilUser instanceof ilObjUser
+			    && $notMessage->isUserAllowedToDismiss($ilUser)
+			) {
 				$notMessage->dismiss($ilUser);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);

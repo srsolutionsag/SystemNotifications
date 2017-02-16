@@ -52,9 +52,9 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	 * @param $a_var
 	 * @return mixed|string
 	 */
-//	public function txt($a_var) {
-//		require_once('./Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php');
-//
-//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($a_var);
-//	}
+	//	public function txt($a_var) {
+	//		require_once('./Customizing/global/plugins/Libraries/PluginTranslator/class.sragPluginTranslator.php');
+	//
+	//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($a_var);
+	//	}
 }

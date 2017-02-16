@@ -30,7 +30,6 @@ class notMessage extends ActiveRecord {
 	protected static $allowed_user_ids = array( 0, 13, 6 );
 
 
-
 	/**
 	 * @return string
 	 * @description Return the Name of your Database Table
@@ -392,6 +391,14 @@ class notMessage extends ActiveRecord {
 	 * @con_length     1
 	 */
 	protected $limit_to_roles = false;
+	/**
+	 * @var bool
+	 *
+	 * @con_has_field  true
+	 * @con_fieldtype  integer
+	 * @con_length     1
+	 */
+	protected $interruptive = false;
 	/**
 	 * @var string
 	 *
@@ -964,5 +971,37 @@ class notMessage extends ActiveRecord {
 	 */
 	public function setLinkTarget($link_target) {
 		$this->link_target = $link_target;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public static function getAllowedUserIds() {
+		return self::$allowed_user_ids;
+	}
+
+
+	/**
+	 * @param array $allowed_user_ids
+	 */
+	public static function setAllowedUserIds($allowed_user_ids) {
+		self::$allowed_user_ids = $allowed_user_ids;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isInterruptive() {
+		return $this->interruptive;
+	}
+
+
+	/**
+	 * @param bool $interruptive
+	 */
+	public function setInterruptive($interruptive) {
+		$this->interruptive = $interruptive;
 	}
 }
