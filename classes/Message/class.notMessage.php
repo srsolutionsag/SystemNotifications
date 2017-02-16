@@ -146,6 +146,9 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isVisibleForUser(ilObjUser $ilObjUser) {
+		if ($ilObjUser->getId() == 0 && $this->isInterruptive()) {
+			return false;
+		}
 		if (!$this->isVisible()) {
 
 			return false;
