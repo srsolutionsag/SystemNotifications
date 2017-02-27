@@ -27,31 +27,19 @@
                 "translations": {
                     "en": "Info"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "type_2": {
                 "translations": {
                     "en": "Warning"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "type_3": {
                 "translations": {
                     "en": "Important"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "event_start": {
                 "translations": {
@@ -81,61 +69,37 @@
                 "translations": {
                     "en": "Display"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "permanent_no": {
                 "translations": {
                     "en": "Show temporary"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "permanent_yes": {
                 "translations": {
                     "en": "Show permanent"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "prevent_login": {
                 "translations": {
                     "en": "Prevent Login"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "additional_classes": {
                 "translations": {
                     "en": "Additional CSS-Classes"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "allowed_users": {
                 "translations": {
                     "en": "Allowed User-IDs (comma-separated)"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "table_title": {
                 "translations": {
@@ -147,41 +111,25 @@
                 "translations": {
                     "en": "Body"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "event_date": {
                 "translations": {
                     "en": "Event date"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "display_date": {
                 "translations": {
                     "en": "Duration display"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "form_button_save": {
                 "translations": {
                     "en": "Save"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "form_button_update": {
                 "translations": {
@@ -192,11 +140,7 @@
                 "translations": {
                     "en": "Cancel"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "form_button_delete": {
                 "translations": {
@@ -207,11 +151,7 @@
                 "translations": {
                     "en": "Compose message"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "success": {
                 "translations": {
@@ -223,89 +163,54 @@
                 "translations": {
                     "en": "Dismissable"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "limit_to_roles": {
                 "translations": {
                     "en": "Limit to Roles"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "limited_to_role_ids": {
                 "translations": {
                     "en": "Roles"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "reset_dismiss": {
                 "translations": {
                     "en": "Reset for all users"
-<<<<<<< Updated upstream
-                }
-=======
                 },
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "position": {
                 "translations": {
                     "en": "Position"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "position_1": {
                 "translations": {
                     "en": "Position 1"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "position_3": {
                 "translations": {
                     "en": "Position 2"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "position_2": {
                 "translations": {
                     "en": "Position 3"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             },
             "position_4": {
                 "translations": {
                     "en": "Position 4"
                 },
-<<<<<<< Updated upstream
-                "last_used": "15.02.2017"
-=======
                 "last_used": "16.02.2017"
             },
             "interruptive": {
@@ -313,7 +218,6 @@
                     "en": "Interruptive"
                 },
                 "last_used": "16.02.2017"
->>>>>>> Stashed changes
             }
         },
         "common": {
