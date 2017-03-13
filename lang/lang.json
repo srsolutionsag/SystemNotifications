@@ -157,7 +157,8 @@
                 "translations": {
                     "en": "Update",
                     "de": "Speichern"
-                }
+                },
+                "last_used": "13.03.2017"
             },
             "form_button_cancel": {
                 "translations": {
@@ -184,7 +185,7 @@
                     "en": "Success",
                     "de": "Angewendet"
                 },
-                "last_used": "15.02.2017"
+                "last_used": "13.03.2017"
             },
             "dismissable": {
                 "translations": {
@@ -247,6 +248,41 @@
             "interruptive": {
                 "translations": {
                     "en": "Interruptive"
+                },
+                "last_used": "13.03.2017"
+            },
+            "interruptive_info": {
+                "translations": {
+                    "en": "Message is displayed on the whole screen so get more attention. Should be dismissable.",
+                    "de": "Nachricht wird auf dem ganzen Screen angezeigt, die Option \"Verwerfbar\" sollte aktiviert werden."
+                },
+                "last_used": "13.03.2017"
+            },
+            "prevent_login_info": {
+                "translations": {
+                    "en": "Users except of the IDs (comma-separated) will be able to login-to the system.",
+                    "de": "Nur diese Benutzer-IDS können sich während des Events einloggen."
+                },
+                "last_used": "13.03.2017"
+            },
+            "limit_to_roles_info": {
+                "translations": {
+                    "en": "Only the selected roles will see the message",
+                    "de": "Nur die ausgewählten Rollen sehen diese Nachricht."
+                },
+                "last_used": "13.03.2017"
+            },
+            "dismissable_info": {
+                "translations": {
+                    "en": "Message can be closed by any user. He won't see this message again",
+                    "de": "Nachricht kann durch einen benutzer geschlossen werden. Dieser Benutzer sieht diese Nachricht nicht mehr."
+                },
+                "last_used": "13.03.2017"
+            },
+            "form_button_updateAndStay": {
+                "translations": {
+                    "en": "Save and Stay",
+                    "de": "Speichern und bleiben"
                 },
                 "last_used": "13.03.2017"
             }
