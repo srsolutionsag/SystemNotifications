@@ -84,6 +84,9 @@ class notMessage extends ActiveRecord {
 	 * @return string
 	 */
 	public function getFullTimeFormated() {
+		if ($this->getEventStart() == 0 && $this->getEventEnd() == 0) {
+			return '';
+		}
 		if (date(self::DATE_FORMAT, $this->getEventStart())
 		    == date(self::DATE_FORMAT, $this->getEventEnd())
 		) {
