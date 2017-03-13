@@ -71,6 +71,16 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 * @param $var
+	 *
+	 * @return string
+	 */
+	protected function infoTxt($var) {
+		return $this->pl->txt('msg_' . $var . '_info');
+	}
+
+
 	public function initForm() {
 		$this->setTitle($this->txt('form_title'));
 
@@ -98,12 +108,14 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->addItem($permanent);
 
 		$dismissable = new ilCheckboxInputGUI($this->txt(self::F_DISMISSABLE), self::F_DISMISSABLE);
+		$dismissable->setInfo($this->infoTxt(self::F_DISMISSABLE));
 		$this->addItem($dismissable);
 
 		$limit_to_roles = new ilCheckboxInputGUI($this->txt(self::F_LIMIT_TO_ROLES), self::F_LIMIT_TO_ROLES);
 		$limited_to_role_ids = new ilMultiSelectInputGUI($this->txt(self::F_LIMITED_TO_ROLE_IDS), self::F_LIMITED_TO_ROLE_IDS);
 		$limited_to_role_ids->setOptions(self::getRoles(ilRbacReview::FILTER_ALL_GLOBAL));
 		$limit_to_roles->addSubItem($limited_to_role_ids);
+		$limit_to_roles->setInfo($this->infoTxt(self::F_LIMIT_TO_ROLES));
 		$this->addItem($limit_to_roles);
 
 		$permanent_no = new ilRadioOption($this->txt(self::F_PERMANENT . '_no'), 0);
@@ -139,13 +151,16 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->addItem($additional_classes);
 
 		$prevent_login = new ilCheckboxInputGUI($this->txt(self::F_PREVENT_LOGIN), self::F_PREVENT_LOGIN);
+		$prevent_login->setInfo($this->infoTxt(self::F_PREVENT_LOGIN));
 		$allowed_users = new ilTextInputGUI($this->txt(self::F_ALLOWED_USERS), self::F_ALLOWED_USERS);
 
 		$prevent_login->addSubItem($allowed_users);
+
 		$this->addItem($prevent_login);
 
-		$prevent_login = new ilCheckboxInputGUI($this->txt(self::F_INTERRUPTIVE), self::F_INTERRUPTIVE);
-		$this->addItem($prevent_login);
+		$interruptive = new ilCheckboxInputGUI($this->txt(self::F_INTERRUPTIVE), self::F_INTERRUPTIVE);
+		$interruptive->setInfo($this->infoTxt(self::F_INTERRUPTIVE));
+		$this->addItem($interruptive);
 
 		$this->addButtons();
 	}
@@ -277,8 +292,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		} else {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE, $this->txt('form_button_'
 			                                                                               . ilSystemNotificationsConfigGUI::CMD_UPDATE));
-			//			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY, $this->txt('form_button_'
-			//				. ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY));
+			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY, $this->txt('form_button_'
+			                                                                                        . ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY));
 		}
 		$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_CANCEL, $this->txt('form_button_'
 		                                                                               . ilSystemNotificationsConfigGUI::CMD_CANCEL));
