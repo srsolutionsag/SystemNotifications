@@ -1,237 +1,270 @@
 {
     "plugin_prefix": "ui_uihk_sys_not",
     "languages": [
-        "en"
+        "en",
+        "de"
     ],
     "entries": {
         "msg": {
             "title": {
                 "translations": {
-                    "en": "Title"
+                    "en": "Title",
+                    "de": "Titel"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "type": {
                 "translations": {
-                    "en": "Type"
+                    "en": "Type",
+                    "de": "Typ"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "type_during_event": {
                 "translations": {
-                    "en": "Type during Event"
+                    "en": "Type during Event",
+                    "de": "Typ während Event"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "type_1": {
                 "translations": {
-                    "en": "Info"
+                    "en": "Info",
+                    "de": "Info"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "type_2": {
                 "translations": {
-                    "en": "Warning"
+                    "en": "Warning",
+                    "de": "Warnung"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "type_3": {
                 "translations": {
-                    "en": "Important"
+                    "en": "Important",
+                    "de": "Wichtig"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "event_start": {
                 "translations": {
-                    "en": "Event start"
+                    "en": "Event start",
+                    "de": "Start Event"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "event_end": {
                 "translations": {
-                    "en": "Event end"
+                    "en": "Event end",
+                    "de": "Event Ende"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "display_start": {
                 "translations": {
-                    "en": "Display start"
+                    "en": "Display start",
+                    "de": "Anzeige Start"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "display_end": {
                 "translations": {
-                    "en": "Display end"
+                    "en": "Display end",
+                    "de": "Anzeige Ende"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "permanent": {
                 "translations": {
-                    "en": "Display"
+                    "en": "Display",
+                    "de": "Anzeige"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "permanent_no": {
                 "translations": {
-                    "en": "Show temporary"
+                    "en": "Show temporary",
+                    "de": "Temporär anzeigen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "permanent_yes": {
                 "translations": {
-                    "en": "Show permanent"
+                    "en": "Show permanent",
+                    "de": "Permanent anzeigen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "prevent_login": {
                 "translations": {
-                    "en": "Prevent Login"
+                    "en": "Prevent Login",
+                    "de": "Login verhindern"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "additional_classes": {
                 "translations": {
-                    "en": "Additional CSS-Classes"
+                    "en": "Additional CSS-Classes",
+                    "de": "Weitere CSS-Klassen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "allowed_users": {
                 "translations": {
-                    "en": "Allowed User-IDs (comma-separated)"
+                    "en": "Allowed User-IDs (comma-separated)",
+                    "de": "zugelassene Benutzer-IDs (kommasepariert)"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "table_title": {
                 "translations": {
-                    "en": "Messages"
+                    "en": "Messages",
+                    "de": "Nachrichten"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "body": {
                 "translations": {
-                    "en": "Body"
+                    "en": "Body",
+                    "de": "Text"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "event_date": {
                 "translations": {
-                    "en": "Event date"
+                    "en": "Event date",
+                    "de": "Zeitpunkt Event"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "display_date": {
                 "translations": {
-                    "en": "Duration display"
+                    "en": "Duration display",
+                    "de": "Dauer Anzeige"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "form_button_save": {
                 "translations": {
-                    "en": "Save"
+                    "en": "Save",
+                    "de": "Speichern"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "form_button_update": {
                 "translations": {
-                    "en": "Update"
+                    "en": "Update",
+                    "de": "Speichern"
                 }
             },
             "form_button_cancel": {
                 "translations": {
-                    "en": "Cancel"
+                    "en": "Cancel",
+                    "de": "Abbrechen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "form_button_delete": {
                 "translations": {
-                    "en": "Delete"
+                    "en": "Delete",
+                    "de": "Löschen"
                 }
             },
             "form_title": {
                 "translations": {
-                    "en": "Compose message"
+                    "en": "Compose message",
+                    "de": "Nachricht erfassen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "success": {
                 "translations": {
-                    "en": "Success"
+                    "en": "Success",
+                    "de": "Angewendet"
                 },
                 "last_used": "15.02.2017"
             },
             "dismissable": {
                 "translations": {
-                    "en": "Dismissable"
+                    "en": "Dismissable",
+                    "de": "Verwerfbar"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "limit_to_roles": {
                 "translations": {
-                    "en": "Limit to Roles"
+                    "en": "Limit to Roles",
+                    "de": "Anzeige auf Rollen einschränken"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "limited_to_role_ids": {
                 "translations": {
-                    "en": "Roles"
+                    "en": "Roles",
+                    "de": "Rollen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "reset_dismiss": {
                 "translations": {
-                    "en": "Reset for all users"
+                    "en": "Reset for all users",
+                    "de": "Für alle Benutzer zurücksetzen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "position": {
                 "translations": {
                     "en": "Position"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "position_1": {
                 "translations": {
                     "en": "Position 1"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "position_3": {
                 "translations": {
                     "en": "Position 2"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "position_2": {
                 "translations": {
                     "en": "Position 3"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "position_4": {
                 "translations": {
                     "en": "Position 4"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "interruptive": {
                 "translations": {
                     "en": "Interruptive"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             }
         },
         "common": {
             "actions": {
                 "translations": {
-                    "en": "Actions"
+                    "en": "Actions",
+                    "de": "Aktionen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             },
             "add_msg": {
                 "translations": {
-                    "en": "Add message"
+                    "en": "Add message",
+                    "de": "Nachricht hinzufügen"
                 },
-                "last_used": "16.02.2017"
+                "last_used": "13.03.2017"
             }
         },
         "": {

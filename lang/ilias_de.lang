@@ -1,4 +1,3 @@
-<!-- language file start -->
 msg_title#:#Titel
 msg_type#:#Typ
 msg_type_during_event#:#Typ während Event
@@ -15,8 +14,6 @@ msg_permanent_yes#:#Permanent anzeigen
 msg_prevent_login#:#Login verhindern
 msg_additional_classes#:#Weitere CSS-Klassen
 msg_allowed_users#:#zugelassene Benutzer-IDs (kommasepariert)
-common_actions#:#Aktionen
-common_add_msg#:#Nachricht hinzufügen
 msg_table_title#:#Nachrichten
 msg_body#:#Text
 msg_event_date#:#Zeitpunkt Event
@@ -31,3 +28,5 @@ msg_dismissable#:#Verwerfbar
 msg_limit_to_roles#:#Anzeige auf Rollen einschränken
 msg_limited_to_role_ids#:#Rollen
 msg_reset_dismiss#:#Für alle Benutzer zurücksetzen
+common_actions#:#Aktionen
+common_add_msg#:#Nachricht hinzufügen
