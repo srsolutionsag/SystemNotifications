@@ -18,7 +18,6 @@ msg_allowed_users#:#zugelassene Benutzer-IDs (kommasepariert)
 common_actions#:#Aktionen
 common_add_msg#:#Nachricht hinzufügen
 msg_table_title#:#Nachrichten
-_#:#
 msg_body#:#Text
 msg_event_date#:#Zeitpunkt Event
 msg_display_date#:#Dauer Anzeige
