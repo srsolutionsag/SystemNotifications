@@ -17,8 +17,8 @@ class notMessageGUI {
 	 */
 	protected static $css_map = array(
 		notMessage::TYPE_WARNING => self::ALERT_WARNING,
-		notMessage::TYPE_ERROR => self::ALERT_DANGER,
-		notMessage::TYPE_INFO => self::ALERT_INFO,
+		notMessage::TYPE_ERROR   => self::ALERT_DANGER,
+		notMessage::TYPE_INFO    => self::ALERT_INFO,
 	);
 	/**
 	 * @var ilTemplate
@@ -47,13 +47,17 @@ class notMessageGUI {
 		$this->tpl->setVariable('TITLE', $this->message->getTitle());
 		$this->tpl->setVariable('BODY', $this->message->getBody());
 		$this->tpl->setVariable('ALERT_TYPE', self::$css_map[$this->message->getActiveType()]);
-//		$this->tpl->setVariable('POSITION', $this->message->getPosition());
+		//		$this->tpl->setVariable('POSITION', $this->message->getPosition());
 		$this->tpl->setVariable('ADD_CSS', $this->message->getAdditionalClasses());
-		if (! $this->message->getPermanent()) {
+		if (!$this->message->getPermanent()) {
 			$this->tpl->setVariable('EVENT', $this->message->getFullTimeFormated());
 		}
+		if ($this->message->isInterruptive()) {
+			$this->tpl->setVariable('INTERRUPTIVE', 'interruptive');
+		}
 		if ($this->message->isUserAllowedToDismiss($ilUser)) {
-			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_' . $this->message->getId());
+			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_'
+			                                        . $this->message->getId());
 		}
 
 		return $this->tpl->get();
@@ -72,4 +76,3 @@ class notMessageGUI {
 	}
 }
 
-?>

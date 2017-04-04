@@ -17,13 +17,17 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
+	/**
+	 * @var \ilSystemNotificationsPlugin
+	 */
+	protected $pl;
 	const TPL_ID = 'tpl_id';
 	/**
 	 * @var array
 	 */
 	protected static $ztpls = array(
 		'Services/Init/tpl.startup_screen.html',
-		'tpl.adm_content.html'
+		'tpl.adm_content.html',
 	);
 
 
@@ -79,7 +83,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		if ($a_part == 'template_show') {
 			$result = $a_par['html'];
 			$result = preg_replace("/<div([\\w =\"_\\-]*)mainspacekeeper([\\w =\"_\\-]*)>/uiUmx", "<div$1mainspacekeeper$2>"
-				. $this->getNotificatiosHTML(), $result);
+			                                                                                      . $this->getNotificatiosHTML(), $result);
 
 			if (!$result) {
 				$result = $a_par['html'];
@@ -92,7 +96,9 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		// LOGIN / LOGOUT
-		if ($a_part == 'template_add' && !self::isLoaded('const') && in_array($a_par[self::TPL_ID], self::$ztpls)) {
+		if ($a_part == 'template_add' && !self::isLoaded('const')
+		    && in_array($a_par[self::TPL_ID], self::$ztpls)
+		) {
 			global $tpl;
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
@@ -101,7 +107,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 		return array(
 			'mode' => ilUIHookPluginGUI::KEEP,
-			'html' => ''
+			'html' => '',
 		);
 	}
 
@@ -111,6 +117,9 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function getNotificatiosHTML() {
 		global $ilUser;
+		if (!$ilUser instanceof ilObjUser) {
+			return null;
+		}
 
 		$notMessageList = new notMessageList();
 		$notMessageList->check($ilUser);
@@ -127,12 +136,12 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			 * @var $notMessage notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
-			if ($notMessage instanceof notMessage) {
+			if ($notMessage instanceof notMessage && $ilUser instanceof ilObjUser
+			    && $notMessage->isUserAllowedToDismiss($ilUser)
+			) {
 				$notMessage->dismiss($ilUser);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
 }
-
-?>
