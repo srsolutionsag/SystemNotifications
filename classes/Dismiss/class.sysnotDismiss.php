@@ -1,4 +1,5 @@
 <?php
+require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  * Class sysnotDismiss
@@ -33,7 +34,7 @@ class sysnotDismiss extends ActiveRecord {
 
 
 	/**
-	 * @param ilObjUser  $ilObjUser
+	 * @param ilObjUser $ilObjUser
 	 * @param notMessage $notMessage
 	 *
 	 * @return mixed
@@ -42,7 +43,9 @@ class sysnotDismiss extends ActiveRecord {
 		$not_id = $notMessage->getId();
 		$usr_id = $ilObjUser->getId();
 		if (!isset(self::$request_cache[$usr_id][$not_id])) {
-			self::$request_cache[$usr_id][$not_id] = self::where(array( 'usr_id' => $usr_id, 'notification_id' => $not_id ))->hasSets();
+			self::$request_cache[$usr_id][$not_id] = self::where(array( 'usr_id'          => $usr_id,
+			                                                            'notification_id' => $not_id,
+			))->hasSets();
 		}
 
 		return self::$request_cache[$usr_id][$not_id];
@@ -50,13 +53,15 @@ class sysnotDismiss extends ActiveRecord {
 
 
 	/**
-	 * @param ilObjUser  $ilObjUser
+	 * @param ilObjUser $ilObjUser
 	 * @param notMessage $notMessage
 	 *
 	 * @return bool
 	 */
 	public static function dismiss(ilObjUser $ilObjUser, notMessage $notMessage) {
-		if (!self::hasDimissed($ilObjUser, $notMessage) AND $notMessage->isUserAllowedToDismiss($ilObjUser)) {
+		if (!self::hasDimissed($ilObjUser, $notMessage)
+		    AND $notMessage->isUserAllowedToDismiss($ilObjUser)
+		) {
 			$obj = new self();
 			$obj->setNotificationId($notMessage->getId());
 			$obj->setUsrId($ilObjUser->getId());
@@ -155,4 +160,3 @@ class sysnotDismiss extends ActiveRecord {
 	}
 }
 
-?>

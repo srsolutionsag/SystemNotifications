@@ -46,5 +46,3 @@ class notMessageListGUI {
 		return $this->tpl->get();
 	}
 }
-
-?>

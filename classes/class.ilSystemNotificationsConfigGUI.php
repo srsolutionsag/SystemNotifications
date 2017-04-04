@@ -41,7 +41,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		if (! $this->pl->isActive()) {
+		if (!$this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
 		}
 		$this->ctrl->setParameter($this, self::NOT_MSG_ID, $_REQUEST[self::NOT_MSG_ID]);
@@ -86,7 +86,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 
 
 	protected function cancel() {
-		$this->ctrl->setParameter($this, self::NOT_MSG_ID, NULL);
+		$this->ctrl->setParameter($this, self::NOT_MSG_ID, null);
 		$this->ctrl->redirect($this, self::CMD_STD);
 	}
 
@@ -142,5 +142,3 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$this->cancel();
 	}
 }
-
-?>

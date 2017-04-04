@@ -5,15 +5,6 @@ Show System-Notification-Banners to ILIAS-Users and Anonymous on every page of I
 Have a look at the [full documentation](/doc/Documentation.pdf?raw=true)
 
 ### Installation
-#### Install ActiveRecord
-ILIAS 4.4 does not include ActiveRecord. Therefore please install the latest Version of active record before you install the plugin:
-Start at your ILIAS root directory
-```bash
-mkdir -p Customizing/global/plugins/Libraries/  
-cd Customizing/global/plugins/Libraries  
-git clone https://github.com/studer-raimann/ActiveRecord.git  
-```  
-#### Install the plugin
 Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/  
@@ -29,9 +20,9 @@ Sind Sie interessiert an einer Plugin-Patenschaft (https://studer-raimann.ch/pro
 
 ### Contact
 studer + raimann ag  
-Waldeggstrasse 72  
-3097 Liebefeld  
+Poststrasse 8  
+3400 Burgdorf  
 Switzerland  
 
-info@studer-raimann.ch
-www.studer-raimann.ch
+info@studer-raimann.ch  
+www.studer-raimann.ch  
