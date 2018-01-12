@@ -25,13 +25,15 @@ class notMessageList extends ActiveRecordList {
 		}
 
 		if (!$show) {
-			global $ilAuth;
-			/**
-			 * @var $ilAuth ilAuthWeb
-			 */
+			global $DIC;
+
+			$ilAuth = $DIC['ilAuthSession'];
+
 			ilSession::setClosingContext(ilSession::SESSION_CLOSE_USER);
 			$ilAuth->logout();
-			session_destroy();
+			if (session_status() === PHP_SESSION_ACTIVE) {
+				session_destroy();
+			}
 			ilUtil::redirect('login.php');
 			exit;
 		}
