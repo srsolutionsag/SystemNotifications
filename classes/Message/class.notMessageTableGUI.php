@@ -15,12 +15,18 @@ class notMessageTableGUI extends ilTable2GUI {
 	 * @var ilSystemNotificationsPlugin
 	 */
 	protected $pl;
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
 
 	/**
 	 * @param ilSystemNotificationsConfigGUI $a_parent_obj
 	 * @param string $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
+		global $DIC;
+		$this->ctrl = $DIC->ctrl();
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		//		$this->pl->updateLanguageFiles();
 		$this->setId('msg_msg_table');

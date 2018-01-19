@@ -49,7 +49,10 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @var ilSystemNotificationsPlugin
 	 */
 	protected $pl;
-
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
 
 	/**
 	 * @param            $parent_gui
@@ -57,6 +60,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 */
 	public function __construct($parent_gui, notMessage $notMessage) {
 		parent::__construct();
+		global $DIC;
+		$this->ctrl = $DIC->ctrl();
 		$this->notMessage = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		//		$this->pl->updateLanguageFiles();
