@@ -28,14 +28,20 @@ class notMessageGUI {
 	 * @var notMessage
 	 */
 	protected $message;
+	/**
+	 * @var ilObjUser
+	 */
+	protected $user;
 
 
 	/**
 	 * @param notMessage $notMessage
 	 */
 	public function __construct(notMessage $notMessage) {
+		global $DIC;
 		$this->message = $notMessage;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/templates/default/tpl.notification.html', true, true);
+		$this->user = $DIC->user();
 	}
 
 
@@ -43,7 +49,6 @@ class notMessageGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		global $ilUser;
 		$this->tpl->setVariable('TITLE', $this->message->getTitle());
 		$this->tpl->setVariable('BODY', $this->message->getBody());
 		$this->tpl->setVariable('ALERT_TYPE', self::$css_map[$this->message->getActiveType()]);
@@ -55,7 +60,7 @@ class notMessageGUI {
 		if ($this->message->isInterruptive()) {
 			$this->tpl->setVariable('INTERRUPTIVE', 'interruptive');
 		}
-		if ($this->message->isUserAllowedToDismiss($ilUser)) {
+		if ($this->message->isUserAllowedToDismiss($this->user)) {
 			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_'
 			                                        . $this->message->getId());
 		}

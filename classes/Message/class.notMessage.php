@@ -176,16 +176,13 @@ class notMessage extends ActiveRecord {
 		if (!$this->isLimitToRoles()) {
 			return true;
 		}
-		global $rbacreview;
+		global $DIC;
 
-		/**
-		 * @var ilRbacReview $rbacreview
-		 */
 		if ($ilObjUser->getId() === 0 AND in_array(0, $this->getLimitedToRoleIds())) {
 			return true;
 		}
 
-		return $rbacreview->isAssignedToAtLeastOneGivenRole($ilObjUser->getId(), $this->getLimitedToRoleIds());
+		return $DIC->rbac()->review()->isAssignedToAtLeastOneGivenRole($ilObjUser->getId(), $this->getLimitedToRoleIds());
 	}
 
 
@@ -195,14 +192,11 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isUserAllowed(ilObjUser $ilObjUser) {
-		global $rbacreview;
-		/**
-		 * @var $rbacreview ilRbacReview
-		 */
+		global $DIC;
 		if (in_array($ilObjUser->getId(), self::$allowed_user_ids)) {
 			return true;
 		}
-		if ($rbacreview->isAssigned($ilObjUser->getId(), 2)) {
+		if ($DIC->rbac()->review()->isAssigned($ilObjUser->getId(), 2)) {
 			return true;
 		}
 		if ($this->getPreventLogin()) {
@@ -500,17 +494,17 @@ class notMessage extends ActiveRecord {
 
 
 	public function create() {
-		global $ilUser;
+		global $DIC;
 		$this->setCreateDate(time());
-		$this->setCreatedBy($ilUser->getId());
+		$this->setCreatedBy($DIC->user()->getId());
 		parent::create();
 	}
 
 
 	public function update() {
-		global $ilUser;
+		global $DIC;
 		$this->setLastUpdate(time());
-		$this->setLastUpdateBy($ilUser->getId());
+		$this->setLastUpdateBy($DIC->user()->getId());
 		parent::update();
 	}
 

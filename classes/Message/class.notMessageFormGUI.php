@@ -41,6 +41,10 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		'li',
 		'p',
 	);
+	/**
+	 * @var bool
+	 */
+	protected $is_new;
 
 
 	/**
@@ -48,15 +52,12 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @param notMessage $notMessage
 	 */
 	public function __construct($parent_gui, notMessage $notMessage) {
-		global $ilCtrl;
-		/**
-		 * @var $ilCtrl ilCtrl
-		 */
+		global $DIC;
 		$this->notMessage = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		//		$this->pl->updateLanguageFiles();
 		$this->is_new = $notMessage->getId() == 0;
-		$this->setFormAction($ilCtrl->getFormAction($parent_gui));
+		$this->setFormAction($DIC->ctrl()->getFormAction($parent_gui));
 		$this->initForm();
 	}
 
@@ -307,13 +308,10 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @return array
 	 */
 	public static function getRoles($filter, $with_text = true) {
-		global $rbacreview;
-		/**
-		 * @var $rbacreview ilRbacReview
-		 */
+		global $DIC;
 		$opt = array( 0 => 'Login' );
 		$role_ids = array( 0 );
-		foreach ($rbacreview->getRolesByFilter($filter) as $role) {
+		foreach ( $DIC->rbac()->review()->getRolesByFilter($filter) as $role) {
 			$opt[$role['obj_id']] = $role['title'] . ' (' . $role['obj_id'] . ')';
 			$role_ids[] = $role['obj_id'];
 		}

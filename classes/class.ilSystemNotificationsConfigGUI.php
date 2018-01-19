@@ -30,16 +30,29 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	 * @var notMessage
 	 */
 	protected $notMessage;
+	/**
+	 * @var ilToolbarGUI
+	 */
+	protected $toolbar;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl;
+		global $DIC;
 		/**
 		 * @var $tpl    ilTemplate
 		 * @var $ilCtrl ilCtrl
 		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->toolbar = $DIC->toolbar();
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		if (!$this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
@@ -58,14 +71,10 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 
 
 	protected function configure() {
-		/**
-		 * @var $ilToolbar ilToolbarGUI
-		 */
-		global $ilToolbar;
 		$button = ilLinkButton::getInstance();
 		$button->setCaption($this->pl->txt('common_add_msg'),false);
 		$button->setUrl($this->ctrl->getLinkTarget($this, self::CMD_ADD));
-		$ilToolbar->addButtonInstance($button);
+		$this->toolbar->addButtonInstance($button);
 		$notMessageTableGUI = new notMessageTableGUI($this, self::CMD_STD);
 		$this->tpl->setContent($notMessageTableGUI->getHTML());
 	}
