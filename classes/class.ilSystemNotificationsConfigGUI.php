@@ -62,7 +62,10 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		 * @var $ilToolbar ilToolbarGUI
 		 */
 		global $ilToolbar;
-		$ilToolbar->addButton($this->pl->txt('common_add_msg'), $this->ctrl->getLinkTarget($this, self::CMD_ADD));
+		$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('common_add_msg'),false);
+		$button->setUrl($this->ctrl->getLinkTarget($this, self::CMD_ADD));
+		$ilToolbar->addButtonInstance($button);
 		$notMessageTableGUI = new notMessageTableGUI($this, self::CMD_STD);
 		$this->tpl->setContent($notMessageTableGUI->getHTML());
 	}
