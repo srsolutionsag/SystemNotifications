@@ -12,10 +12,6 @@ require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvan
 class notMessageTableGUI extends ilTable2GUI {
 
 	/**
-	 * @var ilTabsGUI
-	 */
-	protected $tabs;
-	/**
 	 * @var ilSystemNotificationsPlugin
 	 */
 	protected $pl;
@@ -25,12 +21,8 @@ class notMessageTableGUI extends ilTable2GUI {
 	 * @param string $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
-		global $DIC;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		//		$this->pl->updateLanguageFiles();
-		$this->ctrl = $DIC->ctrl();
-		$this->tabs = $DIC->tabs();
-		$this->lng = $DIC->language();
 		$this->setId('msg_msg_table');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 		$this->setRowTemplate('tpl.row.html', $this->pl->getDirectory());

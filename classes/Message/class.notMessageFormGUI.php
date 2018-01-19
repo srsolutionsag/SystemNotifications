@@ -45,6 +45,10 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 * @var bool
 	 */
 	protected $is_new;
+	/**
+	 * @var ilSystemNotificationsPlugin
+	 */
+	protected $pl;
 
 
 	/**

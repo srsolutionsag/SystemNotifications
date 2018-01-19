@@ -21,7 +21,7 @@ class notMessageListGUI {
 	/**
 	 * @var ilObjUser
 	 */
-	protected $user;
+	protected $usr;
 
 
 	/**
@@ -31,7 +31,7 @@ class notMessageListGUI {
 		global $DIC;
 		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/templates/default/tpl.notification_list.html', false, false);
 		$this->list = $notMessageList;
-		$this->user = $DIC->user();
+		$this->usr = $DIC->user();
 	}
 
 
@@ -41,7 +41,7 @@ class notMessageListGUI {
 	public function getHTML() {
 		$html = '';
 		foreach ($this->list->getActive() as $not) {
-			if ($not->isVisibleForUser($this->user)) {
+			if ($not->isVisibleForUser($this->usr)) {
 				$notGUI = new notMessageGUI($not);
 				$html = $notGUI->append($html);
 			}

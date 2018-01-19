@@ -29,15 +29,19 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		'Services/Init/tpl.startup_screen.html',
 		'tpl.adm_content.html',
 	);
-
+	
+	/**
+	 * @var ilObjUser
+	 */
+	protected $usr;
 
 	public function __construct() {
 		global $DIC;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		$this->user = $DIC->user();
+		$this->usr = $DIC->user();
 	}
 
-
+	
 	/**
 	 * @var array
 	 */
@@ -66,10 +70,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @var int
 	 */
 	protected static $goto_num = 0;
-	/**
-	 * @var ilObjUser
-	 */
-	protected $user;
+	
 
 	/**
 	 * @param       $a_comp
@@ -121,7 +122,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		$notMessageList = new notMessageList();
-		$notMessageList->check($this->user);
+		$notMessageList->check($this->usr);
 		$notifications = new notMessageListGUI($notMessageList);
 
 		return $notifications->getHTML();
@@ -134,10 +135,10 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			 * @var $notMessage notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
-			if ($notMessage instanceof notMessage && $this->user instanceof ilObjUser
-			    && $notMessage->isUserAllowedToDismiss($this->user)
+			if ($notMessage instanceof notMessage && $this->usr instanceof ilObjUser
+			    && $notMessage->isUserAllowedToDismiss($this->usr)
 			) {
-				$notMessage->dismiss($this->user);
+				$notMessage->dismiss($this->usr);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);
 		}
