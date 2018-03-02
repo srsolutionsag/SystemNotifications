@@ -22,6 +22,10 @@ class notMessageListGUI {
 	 * @var ilObjUser
 	 */
 	protected $usr;
+	/**
+	 * @var ilSystemNotificationsPlugin
+	 */
+	protected $pl;
 
 
 	/**
@@ -29,7 +33,8 @@ class notMessageListGUI {
 	 */
 	public function __construct(notMessageList $notMessageList) {
 		global $DIC;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/templates/default/tpl.notification_list.html', false, false);
+		$this->pl = ilSystemNotificationsPlugin::getInstance();
+		$this->tpl = new ilTemplate($this->pl->getDirectory() . '/templates/default/tpl.notification_list.html', false, false);
 		$this->list = $notMessageList;
 		$this->usr = $DIC->user();
 	}
