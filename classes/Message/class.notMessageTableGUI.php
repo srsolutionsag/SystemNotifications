@@ -45,9 +45,21 @@ class notMessageTableGUI extends ilTable2GUI {
 		$this->addColumn($this->pl->txt('msg_display_end', 'display_end_unix'));
 		$this->addColumn($this->pl->txt('common_actions'));
 		// ...
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_mem'), '#', '', '', '', 'select_mem');
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_tut'), '#', '', '', '', 'select_tut');
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_adm'), '#', '', '', '', 'select_adm');
+		/*$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_mem'), false);
+		$button->setUrl("#");
+		$button->setId("select_mem");
+		$this->toolbar->addButtonInstance($button);*/
+		/*$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_tut'), false);
+		$button->setUrl("#");
+		$button->setId("select_tut");*/
+		/*$this->toolbar->addButtonInstance($button);
+		$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_adm'), false);
+		$button->setUrl("#");
+		$button->setId("select_adm");
+		$this->toolbar->addButtonInstance($button);*/
 
 		$this->initData();
 	}
