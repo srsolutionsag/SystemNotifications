@@ -12,6 +12,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
+	const PLUGIN_ID = 'sys_not';
 	const PLUGIN_NAME = 'SystemNotifications';
 	/**
 	 * @var ilSystemNotificationsPlugin
