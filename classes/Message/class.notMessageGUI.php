@@ -45,7 +45,7 @@ class notMessageGUI {
 		global $DIC;
 		$this->message = $notMessage;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		$this->tpl = new ilTemplate($this->pl->getDirectory() . '/templates/default/tpl.notification.html', true, true);
+		$this->tpl = $this->pl->getTemplate('default/tpl.notification.html');
 		$this->usr = $DIC->user();
 	}
 

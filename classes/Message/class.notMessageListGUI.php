@@ -34,7 +34,7 @@ class notMessageListGUI {
 	public function __construct(notMessageList $notMessageList) {
 		global $DIC;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
-		$this->tpl = new ilTemplate($this->pl->getDirectory() . '/templates/default/tpl.notification_list.html', false, false);
+		$this->tpl = $this->pl->getTemplate('default/tpl.notification_list.html', false, false);
 		$this->list = $notMessageList;
 		$this->usr = $DIC->user();
 	}
