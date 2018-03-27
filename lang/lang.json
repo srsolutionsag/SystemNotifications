@@ -247,7 +247,8 @@
             },
             "interruptive": {
                 "translations": {
-                    "en": "Interruptive"
+                    "en": "Interruptive",
+                    "de": "Unterbrechend"
                 },
                 "last_used": "13.03.2017"
             },
@@ -275,7 +276,7 @@
             "dismissable_info": {
                 "translations": {
                     "en": "Message can be closed by any user. He won't see this message again",
-                    "de": "Nachricht kann durch einen benutzer geschlossen werden. Dieser Benutzer sieht diese Nachricht nicht mehr."
+                    "de": "Nachricht kann durch einen Benutzer geschlossen werden. Dieser Benutzer sieht diese Nachricht nicht mehr."
                 },
                 "last_used": "13.03.2017"
             },

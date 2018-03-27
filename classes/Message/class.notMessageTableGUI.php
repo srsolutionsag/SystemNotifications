@@ -12,21 +12,23 @@ require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvan
 class notMessageTableGUI extends ilTable2GUI {
 
 	/**
+	 * @var ilSystemNotificationsPlugin
+	 */
+	protected $pl;
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
+
+	/**
 	 * @param ilSystemNotificationsConfigGUI $a_parent_obj
 	 * @param string $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
-		global $ilCtrl, $ilTabs;
-		/**
-		 * @var $tpl       ilTemplate
-		 * @var $ilCtrl    ilCtrl
-		 * @var $ilTabs    ilTabsGUI
-		 * @var $ilToolbar ilToolbarGUI
-		 */
+		global $DIC;
+		$this->ctrl = $DIC->ctrl();
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		//		$this->pl->updateLanguageFiles();
-		$this->ctrl = $ilCtrl;
-		$this->tabs = $ilTabs;
 		$this->setId('msg_msg_table');
 		parent::__construct($a_parent_obj, $a_parent_cmd);
 		$this->setRowTemplate('tpl.row.html', $this->pl->getDirectory());
@@ -43,9 +45,21 @@ class notMessageTableGUI extends ilTable2GUI {
 		$this->addColumn($this->pl->txt('msg_display_end', 'display_end_unix'));
 		$this->addColumn($this->pl->txt('common_actions'));
 		// ...
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_mem'), '#', '', '', '', 'select_mem');
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_tut'), '#', '', '', '', 'select_tut');
-		//		$ilToolbar->addButton($this->pl->txt('usr_table_button_select_adm'), '#', '', '', '', 'select_adm');
+		/*$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_mem'), false);
+		$button->setUrl("#");
+		$button->setId("select_mem");
+		$this->toolbar->addButtonInstance($button);*/
+		/*$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_tut'), false);
+		$button->setUrl("#");
+		$button->setId("select_tut");*/
+		/*$this->toolbar->addButtonInstance($button);
+		$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('usr_table_button_select_adm'), false);
+		$button->setUrl("#");
+		$button->setId("select_adm");
+		$this->toolbar->addButtonInstance($button);*/
 
 		$this->initData();
 	}
@@ -59,7 +73,6 @@ class notMessageTableGUI extends ilTable2GUI {
 
 
 	protected function fillRow($a_set) {
-		global $lng;
 		/**
 		 * @var $notMessage notMessage
 		 */
@@ -80,8 +93,8 @@ class notMessageTableGUI extends ilTable2GUI {
 		$actions = new ilAdvancedSelectionListGUI();
 		$actions->setListTitle($this->pl->txt('common_actions'));
 		$actions->setId('msg_' . $notMessage->getId());
-		$actions->addItem($lng->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
-		$actions->addItem($lng->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
+		$actions->addItem($this->lng ->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
+		$actions->addItem($this->lng ->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
 		if ($notMessage->getDismissable()) {
 			$actions->addItem($this->pl->txt('msg_reset_dismiss'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_RESET_FOR_ALL));
 		}
