@@ -17,8 +17,8 @@ class notMessageGUI {
 	 */
 	protected static $css_map = array(
 		notMessage::TYPE_WARNING => self::ALERT_WARNING,
-		notMessage::TYPE_ERROR   => self::ALERT_DANGER,
-		notMessage::TYPE_INFO    => self::ALERT_INFO,
+		notMessage::TYPE_ERROR => self::ALERT_DANGER,
+		notMessage::TYPE_INFO => self::ALERT_INFO,
 	);
 	/**
 	 * @var ilTemplate
@@ -28,14 +28,25 @@ class notMessageGUI {
 	 * @var notMessage
 	 */
 	protected $message;
+	/**
+	 * @var ilObjUser
+	 */
+	protected $usr;
+	/**
+	 * @var ilSystemNotificationsPlugin
+	 */
+	protected $pl;
 
 
 	/**
 	 * @param notMessage $notMessage
 	 */
 	public function __construct(notMessage $notMessage) {
+		global $DIC;
 		$this->message = $notMessage;
-		$this->tpl = new ilTemplate('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/templates/default/tpl.notification.html', true, true);
+		$this->pl = ilSystemNotificationsPlugin::getInstance();
+		$this->tpl = $this->pl->getTemplate('default/tpl.notification.html');
+		$this->usr = $DIC->user();
 	}
 
 
@@ -43,7 +54,6 @@ class notMessageGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		global $ilUser;
 		$this->tpl->setVariable('TITLE', $this->message->getTitle());
 		$this->tpl->setVariable('BODY', $this->message->getBody());
 		$this->tpl->setVariable('ALERT_TYPE', self::$css_map[$this->message->getActiveType()]);
@@ -55,9 +65,8 @@ class notMessageGUI {
 		if ($this->message->isInterruptive()) {
 			$this->tpl->setVariable('INTERRUPTIVE', 'interruptive');
 		}
-		if ($this->message->isUserAllowedToDismiss($ilUser)) {
-			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_'
-			                                        . $this->message->getId());
+		if ($this->message->isUserAllowedToDismiss($this->usr)) {
+			$this->tpl->setVariable('DISMISS_LINK', 'goto.php?target=xnot_dismiss_' . $this->message->getId());
 		}
 
 		return $this->tpl->get();

@@ -29,13 +29,19 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		'Services/Init/tpl.startup_screen.html',
 		'tpl.adm_content.html',
 	);
-
+	
+	/**
+	 * @var ilObjUser
+	 */
+	protected $usr;
 
 	public function __construct() {
+		global $DIC;
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
+		$this->usr = $DIC->user();
 	}
 
-
+	
 	/**
 	 * @var array
 	 */
@@ -64,7 +70,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @var int
 	 */
 	protected static $goto_num = 0;
-
+	
 
 	/**
 	 * @param       $a_comp
@@ -74,13 +80,8 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @return array
 	 */
 	public function getHTML($a_comp, $a_part, $a_par = array()) {
-		/**
-		 * @var $ilCtrl       ilCtrl
-		 * @var $tpl          ilTemplate
-		 * @var $ilToolbar    ilToolbarGUI
-		 */
-
 		if ($a_part == 'template_show') {
+
 			$result = $a_par['html'];
 			$result = preg_replace("/<div([\\w =\"_\\-]*)mainspacekeeper([\\w =\"_\\-]*)>/uiUmx", "<div$1mainspacekeeper$2>"
 			                                                                                      . $this->getNotificatiosHTML(), $result);
@@ -99,7 +100,8 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		if ($a_part == 'template_add' && !self::isLoaded('const')
 		    && in_array($a_par[self::TPL_ID], self::$ztpls)
 		) {
-			global $tpl;
+			global $DIC;
+			$tpl = $DIC->ui()->mainTemplate();
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
 			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
 			self::setLoaded('const');
@@ -116,13 +118,13 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @return string
 	 */
 	protected function getNotificatiosHTML() {
-		global $ilUser;
-		if (!$ilUser instanceof ilObjUser) {
+
+		if (!$this->usr instanceof ilObjUser) {
 			return null;
 		}
 
 		$notMessageList = new notMessageList();
-		$notMessageList->check($ilUser);
+		$notMessageList->check($this->usr);
 		$notifications = new notMessageListGUI($notMessageList);
 
 		return $notifications->getHTML();
@@ -131,15 +133,14 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	public function gotoHook() {
 		if (preg_match("/xnot_dismiss_(.*)/uim", $_GET['target'], $matches)) {
-			global $ilUser;
 			/**
 			 * @var $notMessage notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
-			if ($notMessage instanceof notMessage && $ilUser instanceof ilObjUser
-			    && $notMessage->isUserAllowedToDismiss($ilUser)
+			if ($notMessage instanceof notMessage && $this->usr instanceof ilObjUser
+			    && $notMessage->isUserAllowedToDismiss($this->usr)
 			) {
-				$notMessage->dismiss($ilUser);
+				$notMessage->dismiss($this->usr);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);
 		}

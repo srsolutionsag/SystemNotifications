@@ -12,11 +12,16 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
+	const PLUGIN_ID = 'sys_not';
 	const PLUGIN_NAME = 'SystemNotifications';
 	/**
 	 * @var ilSystemNotificationsPlugin
 	 */
 	protected static $instance;
+	/**
+	 * @var ilDB
+	 */
+	protected $db;
 
 
 	/**
@@ -28,6 +33,15 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 		}
 
 		return self::$instance;
+	}
+
+
+	public function __construct() {
+		parent::__construct();
+
+		global $DIC;
+
+		$this->db = $DIC->database();
 	}
 
 
@@ -50,6 +64,7 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
 	/**
 	 * @param $a_var
+	 *
 	 * @return mixed|string
 	 */
 	//	public function txt($a_var) {
@@ -57,4 +72,14 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	//
 	//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($a_var);
 	//	}
+
+	protected function beforeUninstall() {
+		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php';
+		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php';
+
+		$this->db->dropTable(sysnotDismiss::TABLE_NAME, false);
+		$this->db->dropTable(notMessage::TABLE_NAME, false);
+
+		return true;
+	}
 }

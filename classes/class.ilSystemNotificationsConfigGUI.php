@@ -15,31 +15,48 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
  */
 class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 
-	const CMD_STD = 'configure';
+	const CMD_ADD = 'add';
+	const CMD_CANCEL = 'cancel';
+	const CMD_CONFIGURE = 'configure';
+	const CMD_CONFIRM_DELETE = 'confirmDelete';
+	const CMD_DELETE = 'delete';
+	const CMD_EDIT = 'edit';
+	const CMD_RESET_FOR_ALL = 'resetForAll';
 	const CMD_SAVE = 'save';
 	const CMD_UPDATE = 'update';
 	const CMD_UPDATE_AND_STAY = 'updateAndStay';
-	const CMD_ADD = 'add';
-	const CMD_EDIT = 'edit';
-	const CMD_CANCEL = 'cancel';
-	const CMD_CONFIRM_DELETE = 'confirmDelete';
-	const CMD_RESET_FOR_ALL = 'resetForAll';
-	const CMD_DELETE = 'delete';
 	const NOT_MSG_ID = 'xnot_msg_id';
 	/**
 	 * @var notMessage
 	 */
 	protected $notMessage;
+	/**
+	 * @var ilToolbarGUI
+	 */
+	protected $toolbar;
+	/**
+	 * @var ilTemplate
+	 */
+	protected $tpl;
+	/**
+	 * @var ilCtrl
+	 */
+	protected $ctrl;
+	/**
+	 * @var ilSystemNotificationsPlugin
+	 */
+	protected $pl;
 
 
 	public function __construct() {
-		global $tpl, $ilCtrl;
+		global $DIC;
 		/**
 		 * @var $tpl    ilTemplate
 		 * @var $ilCtrl ilCtrl
 		 */
-		$this->tpl = $tpl;
-		$this->ctrl = $ilCtrl;
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->ctrl = $DIC->ctrl();
+		$this->toolbar = $DIC->toolbar();
 		$this->pl = ilSystemNotificationsPlugin::getInstance();
 		if (!$this->pl->isActive()) {
 			$this->ctrl->redirectByClass('');
@@ -53,17 +70,29 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	 * @param $cmd
 	 */
 	public function performCommand($cmd) {
-		$this->{$cmd}();
+		switch ($cmd) {
+			case self::CMD_CONFIGURE:
+			case self::CMD_CONFIRM_DELETE:
+			case self::CMD_SAVE:
+			case self::CMD_UPDATE:
+			case self::CMD_UPDATE_AND_STAY:
+			case self::CMD_ADD:
+			case self::CMD_EDIT:
+			case self::CMD_CANCEL:
+			case self::CMD_RESET_FOR_ALL:
+			case self::CMD_DELETE:
+				$this->{$cmd}();
+				break;
+		}
 	}
 
 
 	protected function configure() {
-		/**
-		 * @var $ilToolbar ilToolbarGUI
-		 */
-		global $ilToolbar;
-		$ilToolbar->addButton($this->pl->txt('common_add_msg'), $this->ctrl->getLinkTarget($this, self::CMD_ADD));
-		$notMessageTableGUI = new notMessageTableGUI($this, self::CMD_STD);
+		$button = ilLinkButton::getInstance();
+		$button->setCaption($this->pl->txt('common_add_msg'), false);
+		$button->setUrl($this->ctrl->getLinkTarget($this, self::CMD_ADD));
+		$this->toolbar->addButtonInstance($button);
+		$notMessageTableGUI = new notMessageTableGUI($this, self::CMD_CONFIGURE);
 		$this->tpl->setContent($notMessageTableGUI->getHTML());
 	}
 
@@ -79,15 +108,15 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$notMessageFormGUI->setValuesByPost();
 		if ($notMessageFormGUI->saveObject()) {
 			ilUtil::sendInfo($this->pl->txt('msg_success'), true);
-			$this->ctrl->redirect($this, self::CMD_STD);
+			$this->ctrl->redirect($this, self::CMD_CONFIGURE);
 		}
 		$this->tpl->setContent($notMessageFormGUI->getHTML());
 	}
 
 
 	protected function cancel() {
-		$this->ctrl->setParameter($this, self::NOT_MSG_ID, null);
-		$this->ctrl->redirect($this, self::CMD_STD);
+		$this->ctrl->setParameter($this, self::NOT_MSG_ID, NULL);
+		$this->ctrl->redirect($this, self::CMD_CONFIGURE);
 	}
 
 
@@ -103,7 +132,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 		$notMessageFormGUI->setValuesByPost();
 		if ($notMessageFormGUI->saveObject()) {
 			ilUtil::sendInfo($this->pl->txt('msg_success'), true);
-			$this->ctrl->redirect($this, self::CMD_STD);
+			$this->ctrl->redirect($this, self::CMD_CONFIGURE);
 		}
 		$this->tpl->setContent($notMessageFormGUI->getHTML());
 	}
