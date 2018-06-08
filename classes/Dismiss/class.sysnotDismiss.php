@@ -1,5 +1,4 @@
 <?php
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
 
 /**
  * Class sysnotDismiss
@@ -160,4 +159,3 @@ class sysnotDismiss extends ActiveRecord {
 		$this->notification_id = $notification_id;
 	}
 }
-

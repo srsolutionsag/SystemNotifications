@@ -1,6 +1,5 @@
 <?php
-require_once('class.notMessageList.php');
-require_once('class.notMessageGUI.php');
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Class notMessageListGUI

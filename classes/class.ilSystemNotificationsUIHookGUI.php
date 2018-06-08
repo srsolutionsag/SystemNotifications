@@ -1,12 +1,8 @@
 <?php
 
 /* Copyright (c) 1998-2010 ILIAS open source, Extended GPL, see docs/LICENSE */
-require_once('class.ilSystemNotificationsPlugin.php');
-require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageList.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageListGUI.php');
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /**
  * Class ilSystemNotificationsUIHookGUI
@@ -29,11 +25,11 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		'Services/Init/tpl.startup_screen.html',
 		'tpl.adm_content.html',
 	);
-	
 	/**
 	 * @var ilObjUser
 	 */
 	protected $usr;
+
 
 	public function __construct() {
 		global $DIC;
@@ -41,7 +37,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		$this->usr = $DIC->user();
 	}
 
-	
+
 	/**
 	 * @var array
 	 */
@@ -70,7 +66,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @var int
 	 */
 	protected static $goto_num = 0;
-	
+
 
 	/**
 	 * @param       $a_comp
@@ -84,7 +80,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 			$result = $a_par['html'];
 			$result = preg_replace("/<div([\\w =\"_\\-]*)mainspacekeeper([\\w =\"_\\-]*)>/uiUmx", "<div$1mainspacekeeper$2>"
-			                                                                                      . $this->getNotificatiosHTML(), $result);
+				. $this->getNotificatiosHTML(), $result);
 
 			if (!$result) {
 				$result = $a_par['html'];
@@ -98,8 +94,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 		// LOGIN / LOGOUT
 		if ($a_part == 'template_add' && !self::isLoaded('const')
-		    && in_array($a_par[self::TPL_ID], self::$ztpls)
-		) {
+			&& in_array($a_par[self::TPL_ID], self::$ztpls)) {
 			global $DIC;
 			$tpl = $DIC->ui()->mainTemplate();
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
@@ -120,7 +115,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	protected function getNotificatiosHTML() {
 
 		if (!$this->usr instanceof ilObjUser) {
-			return null;
+			return NULL;
 		}
 
 		$notMessageList = new notMessageList();
@@ -138,8 +133,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			 */
 			$notMessage = notMessage::find($matches[1]);
 			if ($notMessage instanceof notMessage && $this->usr instanceof ilObjUser
-			    && $notMessage->isUserAllowedToDismiss($this->usr)
-			) {
+				&& $notMessage->isUserAllowedToDismiss($this->usr)) {
 				$notMessage->dismiss($this->usr);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);

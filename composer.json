@@ -1,0 +1,22 @@
+{
+  "autoload": {
+    "classmap": [
+      "./classes/",
+      "../../../../../../../Services/ActiveRecord/class.ActiveRecord.php",
+      "../../../../../../../Services/Component/classes/class.ilPluginConfigGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilDateDurationInputGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilMultiSelectInputGUI.php",
+      "../../../../../../../Services/Form/classes/class.ilPropertyFormGUI.php",
+      "../../../../../../../Services/Table/classes/class.ilTable2GUI.php",
+      "../../../../../../../Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php",
+      "../../../../../../../Services/UIComponent/classes/class.ilUIHookPluginGUI.php",
+      "../../../../../../../Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php",
+      "../../../../../../../Services/Utilities/classes/class.ilConfirmationGUI.php"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
+  }
+}
