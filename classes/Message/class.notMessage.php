@@ -32,18 +32,17 @@ class notMessage extends ActiveRecord {
 
 	/**
 	 * @return string
-	 * @description Return the Name of your Database Table
-	 * @deprecated
 	 */
-	static function returnDbTableName() {
+	public function getConnectorContainerName() {
 		return self::TABLE_NAME;
 	}
 
 
 	/**
 	 * @return string
+	 * @deprecated
 	 */
-	public function getConnectorContainerName() {
+	public static function returnDbTableName() {
 		return self::TABLE_NAME;
 	}
 
@@ -73,8 +72,7 @@ class notMessage extends ActiveRecord {
 
 
 	public function resetForAllUsers() {
-		foreach (sysnotDismiss::where(array( 'notification_id' => $this->getId() ))
-		                      ->get() as $not) {
+		foreach (sysnotDismiss::where(array( 'notification_id' => $this->getId() ))->get() as $not) {
 			$not->delete();
 		}
 	}
@@ -87,15 +85,11 @@ class notMessage extends ActiveRecord {
 		if ($this->getEventStart() == 0 && $this->getEventEnd() == 0) {
 			return '';
 		}
-		if (date(self::DATE_FORMAT, $this->getEventStart())
-		    == date(self::DATE_FORMAT, $this->getEventEnd())
-		) {
-			return date(self::DATE_FORMAT, $this->getEventEnd()) . ', '
-			       . date(self::TIME_FORMAT, $this->getEventStart()) . " - "
-			       . date(self::TIME_FORMAT, $this->getEventEnd());
+		if (date(self::DATE_FORMAT, $this->getEventStart()) == date(self::DATE_FORMAT, $this->getEventEnd())) {
+			return date(self::DATE_FORMAT, $this->getEventEnd()) . ', ' . date(self::TIME_FORMAT, $this->getEventStart()) . " - "
+				. date(self::TIME_FORMAT, $this->getEventEnd());
 		} else {
-			return date(self::DATE_TIME_FORMAT, $this->getEventStart()) . ' - '
-			       . date(self::DATE_TIME_FORMAT, $this->getEventEnd());
+			return date(self::DATE_TIME_FORMAT, $this->getEventStart()) . ' - ' . date(self::DATE_TIME_FORMAT, $this->getEventEnd());
 		}
 	}
 
@@ -106,8 +100,7 @@ class notMessage extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isUserAllowedToDismiss(ilObjUser $ilUser) {
-		return ($this->getDismissable() AND $ilUser->getId() != 0 AND $ilUser->getId()
-		                                                              != ANONYMOUS_USER_ID);
+		return ($this->getDismissable() AND $ilUser->getId() != 0 AND $ilUser->getId() != ANONYMOUS_USER_ID);
 	}
 
 
@@ -336,7 +329,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $parent_id = null;
+	protected $parent_id = NULL;
 	/**
 	 * @var int
 	 *
@@ -358,7 +351,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $created_by = null;
+	protected $created_by = NULL;
 	/**
 	 * @var int
 	 *
@@ -366,7 +359,7 @@ class notMessage extends ActiveRecord {
 	 * @con_fieldtype  integer
 	 * @con_length     8
 	 */
-	protected $last_update_by = null;
+	protected $last_update_by = NULL;
 	/**
 	 * @var bool
 	 *
@@ -442,7 +435,7 @@ class notMessage extends ActiveRecord {
 				return strtotime($field_value);
 				break;
 			case 'allowed_users':
-				if ($field_value === null) {
+				if ($field_value === NULL) {
 					$array_unique = self::$allowed_user_ids;
 				} else {
 					$json_decode = json_decode($field_value, true);

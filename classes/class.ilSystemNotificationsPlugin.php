@@ -72,7 +72,9 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	//
 	//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($a_var);
 	//	}
-
+	/**
+	 * @return bool
+	 */
 	protected function beforeUninstall() {
 		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php';
 		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php';
