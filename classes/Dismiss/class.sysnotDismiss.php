@@ -75,7 +75,7 @@ class sysnotDismiss extends ActiveRecord {
 	 */
 	public static function reactivateAll(notMessage $notMessage) {
 		/**
-		 * @var $dismiss sysnotDismiss
+		 * @var sysnotDismiss $dismiss
 		 */
 		foreach (self::where(array( 'notification_id' => $notMessage->getId() )) as $dismiss) {
 			$dismiss->delete();

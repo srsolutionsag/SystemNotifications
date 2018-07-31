@@ -178,7 +178,7 @@ class notMessage extends ActiveRecord {
 
 
 	/**
-	 * @param $ilObjUser
+	 * @param ilObjUser $ilObjUser
 	 *
 	 * @return bool
 	 */
@@ -417,8 +417,8 @@ class notMessage extends ActiveRecord {
 
 
 	/**
-	 * @param $field_name
-	 * @param $field_value
+	 * @param string $field_name
+	 * @param string $field_value
 	 *
 	 * @return int|mixed
 	 */
@@ -455,7 +455,7 @@ class notMessage extends ActiveRecord {
 
 
 	/**
-	 * @param $field_name
+	 * @param string $field_name
 	 *
 	 * @return bool|mixed|string
 	 */

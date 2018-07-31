@@ -72,7 +72,7 @@ class notMessageTableGUI extends ilTable2GUI {
 
 	protected function fillRow($a_set) {
 		/**
-		 * @var $notMessage notMessage
+		 * @var notMessage $notMessage
 		 */
 		$notMessage = notMessage::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $notMessage->getTitle());

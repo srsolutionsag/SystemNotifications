@@ -75,7 +75,7 @@ class notMessageGUI {
 
 
 	/**
-	 * @param $html
+	 * @param string $html
 	 *
 	 * @return string
 	 */

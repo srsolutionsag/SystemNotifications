@@ -14,7 +14,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	/**
-	 * @var \ilSystemNotificationsPlugin
+	 * @var ilSystemNotificationsPlugin
 	 */
 	protected $pl;
 	const TPL_ID = 'tpl_id';
@@ -45,7 +45,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return bool
 	 */
@@ -55,7 +55,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 */
 	protected static function setLoaded($key) {
 		self::$loaded[$key] = 1;
@@ -69,9 +69,9 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 * @param       $a_comp
-	 * @param       $a_part
-	 * @param array $a_par
+	 * @param string $a_comp
+	 * @param string $a_part
+	 * @param array  $a_par
 	 *
 	 * @return array
 	 */
@@ -129,7 +129,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	public function gotoHook() {
 		if (preg_match("/xnot_dismiss_(.*)/uim", $_GET['target'], $matches)) {
 			/**
-			 * @var $notMessage notMessage
+			 * @var notMessage $notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
 			if ($notMessage instanceof notMessage && $this->usr instanceof ilObjUser

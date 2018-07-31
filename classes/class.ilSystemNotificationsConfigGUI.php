@@ -46,8 +46,8 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	public function __construct() {
 		global $DIC;
 		/**
-		 * @var $tpl    ilTemplate
-		 * @var $ilCtrl ilCtrl
+		 * @var ilTemplate $tpl
+		 * @var ilCtrl     $ilCtrl
 		 */
 		$this->tpl = $DIC->ui()->mainTemplate();
 		$this->ctrl = $DIC->ctrl();
@@ -62,7 +62,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
-	 * @param $cmd
+	 * @param string $cmd
 	 */
 	public function performCommand($cmd) {
 		switch ($cmd) {

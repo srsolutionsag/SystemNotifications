@@ -62,7 +62,7 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * @param $a_var
+	 * @param string $a_var
 	 *
 	 * @return mixed|string
 	 */

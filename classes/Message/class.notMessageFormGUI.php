@@ -53,8 +53,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param            $parent_gui
-	 * @param notMessage $notMessage
+	 * @param notMessageGUI $parent_gui
+	 * @param notMessage    $notMessage
 	 */
 	public function __construct($parent_gui, notMessage $notMessage) {
 		parent::__construct();
@@ -70,7 +70,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param $var
+	 * @param string $var
 	 *
 	 * @return string
 	 */
@@ -80,7 +80,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param $var
+	 * @param string $var
 	 *
 	 * @return string
 	 */
@@ -192,8 +192,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		);
 		$this->setValuesByArray($array);
 		/**
-		 * @var $f_event_date   ilDateDurationInputGUI
-		 * @var $f_display_date ilDateDurationInputGUI
+		 * @var ilDateDurationInputGUI $f_event_date
+		 * @var ilDateDurationInputGUI $f_display_date
 		 */
 		if ($eventStart = $this->notMessage->getEventStart()) {
 			$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
@@ -232,8 +232,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setInterruptive($this->getInput(self::F_INTERRUPTIVE));
 
 		/**
-		 * @var $f_event_date   ilDateDurationInputGUI
-		 * @var $f_display_date ilDateDurationInputGUI
+		 * @var ilDateDurationInputGUI $f_event_date
+		 * @var ilDateDurationInputGUI $f_display_date
 		 */
 		$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
 		if ($f_event_date->getStart() instanceof ilDateTime) {
