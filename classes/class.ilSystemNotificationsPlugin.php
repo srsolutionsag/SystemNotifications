@@ -1,7 +1,6 @@
 <?php
 
-require_once('./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /**
  * Class ilSystemNotificationsPlugin
@@ -63,7 +62,7 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * @param $a_var
+	 * @param string $a_var
 	 *
 	 * @return mixed|string
 	 */
@@ -72,11 +71,10 @@ class ilSystemNotificationsPlugin extends ilUserInterfaceHookPlugin {
 	//
 	//		return sragPluginTranslator::getInstance($this)->active()->write()->txt($a_var);
 	//	}
-
+	/**
+	 * @return bool
+	 */
 	protected function beforeUninstall() {
-		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Dismiss/class.sysnotDismiss.php';
-		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php';
-
 		$this->db->dropTable(sysnotDismiss::TABLE_NAME, false);
 		$this->db->dropTable(notMessage::TABLE_NAME, false);
 

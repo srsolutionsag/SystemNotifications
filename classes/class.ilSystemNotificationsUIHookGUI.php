@@ -1,12 +1,8 @@
 <?php
 
 /* Copyright (c) 1998-2010 ILIAS open source, Extended GPL, see docs/LICENSE */
-require_once('class.ilSystemNotificationsPlugin.php');
-require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Config/class.sysnotConfig.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageList.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageListGUI.php');
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /**
  * Class ilSystemNotificationsUIHookGUI
@@ -18,7 +14,7 @@ require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 	/**
-	 * @var \ilSystemNotificationsPlugin
+	 * @var ilSystemNotificationsPlugin
 	 */
 	protected $pl;
 	const TPL_ID = 'tpl_id';
@@ -29,11 +25,11 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		'Services/Init/tpl.startup_screen.html',
 		'tpl.adm_content.html',
 	);
-	
 	/**
 	 * @var ilObjUser
 	 */
 	protected $usr;
+
 
 	public function __construct() {
 		global $DIC;
@@ -41,7 +37,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 		$this->usr = $DIC->user();
 	}
 
-	
+
 	/**
 	 * @var array
 	 */
@@ -49,7 +45,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 *
 	 * @return bool
 	 */
@@ -59,7 +55,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 * @param $key
+	 * @param string $key
 	 */
 	protected static function setLoaded($key) {
 		self::$loaded[$key] = 1;
@@ -70,12 +66,12 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	 * @var int
 	 */
 	protected static $goto_num = 0;
-	
+
 
 	/**
-	 * @param       $a_comp
-	 * @param       $a_part
-	 * @param array $a_par
+	 * @param string $a_comp
+	 * @param string $a_part
+	 * @param array  $a_par
 	 *
 	 * @return array
 	 */
@@ -84,7 +80,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 			$result = $a_par['html'];
 			$result = preg_replace("/<div([\\w =\"_\\-]*)mainspacekeeper([\\w =\"_\\-]*)>/uiUmx", "<div$1mainspacekeeper$2>"
-			                                                                                      . $this->getNotificatiosHTML(), $result);
+				. $this->getNotificatiosHTML(), $result);
 
 			if (!$result) {
 				$result = $a_par['html'];
@@ -98,8 +94,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 
 		// LOGIN / LOGOUT
 		if ($a_part == 'template_add' && !self::isLoaded('const')
-		    && in_array($a_par[self::TPL_ID], self::$ztpls)
-		) {
+			&& in_array($a_par[self::TPL_ID], self::$ztpls)) {
 			global $DIC;
 			$tpl = $DIC->ui()->mainTemplate();
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
@@ -120,7 +115,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	protected function getNotificatiosHTML() {
 
 		if (!$this->usr instanceof ilObjUser) {
-			return null;
+			return NULL;
 		}
 
 		$notMessageList = new notMessageList();
@@ -134,12 +129,11 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 	public function gotoHook() {
 		if (preg_match("/xnot_dismiss_(.*)/uim", $_GET['target'], $matches)) {
 			/**
-			 * @var $notMessage notMessage
+			 * @var notMessage $notMessage
 			 */
 			$notMessage = notMessage::find($matches[1]);
 			if ($notMessage instanceof notMessage && $this->usr instanceof ilObjUser
-			    && $notMessage->isUserAllowedToDismiss($this->usr)
-			) {
+				&& $notMessage->isUserAllowedToDismiss($this->usr)) {
 				$notMessage->dismiss($this->usr);
 			}
 			ilUtil::redirect($_SERVER['HTTP_REFERER']);

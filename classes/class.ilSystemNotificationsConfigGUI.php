@@ -1,11 +1,6 @@
 <?php
-require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageFormGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessage.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/Message/class.notMessageTableGUI.php');
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SystemNotifications/classes/class.ilSystemNotificationsPlugin.php');
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /**
  * Class ilSystemNotificationsConfigGUI
@@ -51,8 +46,8 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 	public function __construct() {
 		global $DIC;
 		/**
-		 * @var $tpl    ilTemplate
-		 * @var $ilCtrl ilCtrl
+		 * @var ilTemplate $tpl
+		 * @var ilCtrl     $ilCtrl
 		 */
 		$this->tpl = $DIC->ui()->mainTemplate();
 		$this->ctrl = $DIC->ctrl();
@@ -67,7 +62,7 @@ class ilSystemNotificationsConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
-	 * @param $cmd
+	 * @param string $cmd
 	 */
 	public function performCommand($cmd) {
 		switch ($cmd) {

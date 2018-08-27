@@ -1,7 +1,4 @@
 <?php
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
-require_once('./include/inc.ilias_version.php');
-require_once('./Services/Component/classes/class.ilComponent.php');
 
 /**
  * Class sysnotConfig
@@ -14,4 +11,3 @@ require_once('./Services/Component/classes/class.ilComponent.php');
 class sysnotConfig {
 
 }
-

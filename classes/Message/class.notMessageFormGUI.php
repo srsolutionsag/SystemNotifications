@@ -1,7 +1,4 @@
 <?php
-require_once('./Services/Form/classes/class.ilPropertyFormGUI.php');
-require_once('./Services/Form/classes/class.ilDateDurationInputGUI.php');
-require_once('./Services/Form/classes/class.ilMultiSelectInputGUI.php');
 
 /**
  * Class notMessageFormGUI
@@ -54,9 +51,10 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 	 */
 	protected $ctrl;
 
+
 	/**
-	 * @param            $parent_gui
-	 * @param notMessage $notMessage
+	 * @param notMessageGUI $parent_gui
+	 * @param notMessage    $notMessage
 	 */
 	public function __construct($parent_gui, notMessage $notMessage) {
 		parent::__construct();
@@ -72,7 +70,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param $var
+	 * @param string $var
 	 *
 	 * @return string
 	 */
@@ -82,7 +80,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param $var
+	 * @param string $var
 	 *
 	 * @return string
 	 */
@@ -96,9 +94,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 		$type = new ilSelectInputGUI($this->txt(self::F_TYPE), self::F_TYPE);
 		$type->setOptions(array(
-			notMessage::TYPE_INFO    => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_INFO),
+			notMessage::TYPE_INFO => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_INFO),
 			notMessage::TYPE_WARNING => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_WARNING),
-			notMessage::TYPE_ERROR   => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_ERROR),
+			notMessage::TYPE_ERROR => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_ERROR),
 
 		));
 		$this->addItem($type);
@@ -139,9 +137,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$permanent_no->addSubItem($event_time);
 		$type_during_event = new ilSelectInputGUI($this->txt(self::F_TYPE_DURING_EVENT), self::F_TYPE_DURING_EVENT);
 		$type_during_event->setOptions(array(
-			notMessage::TYPE_INFO    => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_INFO),
+			notMessage::TYPE_INFO => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_INFO),
 			notMessage::TYPE_WARNING => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_WARNING),
-			notMessage::TYPE_ERROR   => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_ERROR),
+			notMessage::TYPE_ERROR => $this->txt(self::F_TYPE . '_' . notMessage::TYPE_ERROR),
 
 		));
 		$permanent_no->addSubItem($type_during_event);
@@ -150,9 +148,9 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 		$position = new ilSelectInputGUI($this->txt(self::F_POSITION), self::F_POSITION);
 		$position->setOptions(array(
-			notMessage::POS_TOP    => $this->txt(self::F_POSITION . '_' . notMessage::POS_TOP),
-			notMessage::POST_LEFT  => $this->txt(self::F_POSITION . '_' . notMessage::POST_LEFT),
-			notMessage::POS_RIGHT  => $this->txt(self::F_POSITION . '_' . notMessage::POS_RIGHT),
+			notMessage::POS_TOP => $this->txt(self::F_POSITION . '_' . notMessage::POS_TOP),
+			notMessage::POST_LEFT => $this->txt(self::F_POSITION . '_' . notMessage::POST_LEFT),
+			notMessage::POS_RIGHT => $this->txt(self::F_POSITION . '_' . notMessage::POS_RIGHT),
 			notMessage::POS_BOTTOM => $this->txt(self::F_POSITION . '_' . notMessage::POS_BOTTOM),
 		));
 		// $this->addItem($position);
@@ -178,24 +176,24 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 	public function fillForm() {
 		$array = array(
-			self::F_TITLE               => $this->notMessage->getTitle(),
-			self::F_BODY                => $this->notMessage->getBody(),
-			self::F_TYPE                => $this->notMessage->getType(),
-			self::F_TYPE_DURING_EVENT   => $this->notMessage->getTypeDuringEvent(),
-			self::F_PERMANENT           => (int)$this->notMessage->getPermanent(),
-			self::F_POSITION            => $this->notMessage->getPosition(),
-			self::F_ADDITIONAL_CLASSES  => $this->notMessage->getAdditionalClasses(),
-			self::F_PREVENT_LOGIN       => $this->notMessage->getPreventLogin(),
-			self::F_ALLOWED_USERS       => @implode(',', $this->notMessage->getAllowedUsers()),
-			self::F_DISMISSABLE         => $this->notMessage->getDismissable(),
-			self::F_LIMIT_TO_ROLES      => $this->notMessage->isLimitToRoles(),
+			self::F_TITLE => $this->notMessage->getTitle(),
+			self::F_BODY => $this->notMessage->getBody(),
+			self::F_TYPE => $this->notMessage->getType(),
+			self::F_TYPE_DURING_EVENT => $this->notMessage->getTypeDuringEvent(),
+			self::F_PERMANENT => (int)$this->notMessage->getPermanent(),
+			self::F_POSITION => $this->notMessage->getPosition(),
+			self::F_ADDITIONAL_CLASSES => $this->notMessage->getAdditionalClasses(),
+			self::F_PREVENT_LOGIN => $this->notMessage->getPreventLogin(),
+			self::F_ALLOWED_USERS => @implode(',', $this->notMessage->getAllowedUsers()),
+			self::F_DISMISSABLE => $this->notMessage->getDismissable(),
+			self::F_LIMIT_TO_ROLES => $this->notMessage->isLimitToRoles(),
 			self::F_LIMITED_TO_ROLE_IDS => $this->notMessage->getLimitedToRoleIds(),
-			self::F_INTERRUPTIVE        => $this->notMessage->isInterruptive(),
+			self::F_INTERRUPTIVE => $this->notMessage->isInterruptive(),
 		);
 		$this->setValuesByArray($array);
 		/**
-		 * @var $f_event_date   ilDateDurationInputGUI
-		 * @var $f_display_date ilDateDurationInputGUI
+		 * @var ilDateDurationInputGUI $f_event_date
+		 * @var ilDateDurationInputGUI $f_display_date
 		 */
 		if ($eventStart = $this->notMessage->getEventStart()) {
 			$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
@@ -234,8 +232,8 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		$this->notMessage->setInterruptive($this->getInput(self::F_INTERRUPTIVE));
 
 		/**
-		 * @var $f_event_date   ilDateDurationInputGUI
-		 * @var $f_display_date ilDateDurationInputGUI
+		 * @var ilDateDurationInputGUI $f_event_date
+		 * @var ilDateDurationInputGUI $f_display_date
 		 */
 		$f_event_date = $this->getItemByPostVar(self::F_EVENT_DATE);
 		if ($f_event_date->getStart() instanceof ilDateTime) {
@@ -297,21 +295,19 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 
 	protected function addButtons() {
 		if ($this->is_new) {
-			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_SAVE, $this->txt('form_button_'
-			                                                                             . ilSystemNotificationsConfigGUI::CMD_SAVE));
+			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_SAVE, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_SAVE));
 		} else {
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE, $this->txt('form_button_'
-			                                                                               . ilSystemNotificationsConfigGUI::CMD_UPDATE));
+				. ilSystemNotificationsConfigGUI::CMD_UPDATE));
 			$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY, $this->txt('form_button_'
-			                                                                                        . ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY));
+				. ilSystemNotificationsConfigGUI::CMD_UPDATE_AND_STAY));
 		}
-		$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_CANCEL, $this->txt('form_button_'
-		                                                                               . ilSystemNotificationsConfigGUI::CMD_CANCEL));
+		$this->addCommandButton(ilSystemNotificationsConfigGUI::CMD_CANCEL, $this->txt('form_button_' . ilSystemNotificationsConfigGUI::CMD_CANCEL));
 	}
 
 
 	/**
-	 * @param int $filter
+	 * @param int  $filter
 	 * @param bool $with_text
 	 *
 	 * @return array
@@ -320,7 +316,7 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		global $DIC;
 		$opt = array( 0 => 'Login' );
 		$role_ids = array( 0 );
-		foreach ( $DIC->rbac()->review()->getRolesByFilter($filter) as $role) {
+		foreach ($DIC->rbac()->review()->getRolesByFilter($filter) as $role) {
 			$opt[$role['obj_id']] = $role['title'] . ' (' . $role['obj_id'] . ')';
 			$role_ids[] = $role['obj_id'];
 		}
@@ -331,4 +327,3 @@ class notMessageFormGUI extends ilPropertyFormGUI {
 		}
 	}
 }
-

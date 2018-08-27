@@ -1,7 +1,4 @@
 <?php
-require_once('./Services/Table/classes/class.ilTable2GUI.php');
-require_once('class.notMessage.php');
-require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
 
 /**
  * Class notMessageTableGUI
@@ -20,9 +17,10 @@ class notMessageTableGUI extends ilTable2GUI {
 	 */
 	protected $ctrl;
 
+
 	/**
 	 * @param ilSystemNotificationsConfigGUI $a_parent_obj
-	 * @param string $a_parent_cmd
+	 * @param string                         $a_parent_cmd
 	 */
 	public function __construct(ilSystemNotificationsConfigGUI $a_parent_obj, $a_parent_cmd) {
 		global $DIC;
@@ -74,13 +72,12 @@ class notMessageTableGUI extends ilTable2GUI {
 
 	protected function fillRow($a_set) {
 		/**
-		 * @var $notMessage notMessage
+		 * @var notMessage $notMessage
 		 */
 		$notMessage = notMessage::find($a_set['id']);
 		$this->tpl->setVariable('TITLE', $notMessage->getTitle());
 		$this->tpl->setVariable('TYPE', $this->pl->txt('msg_type_' . $notMessage->getType()));
-		$this->tpl->setVariable('TYPE_DURING_EVENT', $this->pl->txt('msg_type_'
-		                                                            . $notMessage->getTypeDuringEvent()));
+		$this->tpl->setVariable('TYPE_DURING_EVENT', $this->pl->txt('msg_type_' . $notMessage->getTypeDuringEvent()));
 
 		if (!$notMessage->getPermanent()) {
 			$this->tpl->setVariable('EVENT_START', $a_set['event_start']);
@@ -93,8 +90,8 @@ class notMessageTableGUI extends ilTable2GUI {
 		$actions = new ilAdvancedSelectionListGUI();
 		$actions->setListTitle($this->pl->txt('common_actions'));
 		$actions->setId('msg_' . $notMessage->getId());
-		$actions->addItem($this->lng ->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
-		$actions->addItem($this->lng ->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
+		$actions->addItem($this->lng->txt('edit'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_EDIT));
+		$actions->addItem($this->lng->txt('delete'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_CONFIRM_DELETE));
 		if ($notMessage->getDismissable()) {
 			$actions->addItem($this->pl->txt('msg_reset_dismiss'), '', $this->ctrl->getLinkTarget($this->parent_obj, ilSystemNotificationsConfigGUI::CMD_RESET_FOR_ALL));
 		}
