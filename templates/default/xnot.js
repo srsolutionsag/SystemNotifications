@@ -2,7 +2,7 @@
  * Class xNotification
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
- * @type {{init: Function, register: Function, initClasses: Function}}
+ * @type {{init: Function, register: Function, initClasses: Function adaptLeftNav: Function}}
  */
 var xNotification = {
 	init: function () {
@@ -39,9 +39,20 @@ var xNotification = {
 				$(this).addClass('xnot-content-hidden');
 			}
 		});
+	},
+	adaptLeftNav: function () {
+		// adapt new spacing
+		e = $("#left_nav");
+		if (e.length != 0) {
+			$('#xnot_container').addClass("ilLeftNavSpace");
+		} else {
+			$("#xnot_container").removeClass("ilLeftNavSpace");
+		}
 	}
 };
 
 $(document).ready(function () {
 	xNotification.init();
+	xNotification.adaptLeftNav();
 });
+
