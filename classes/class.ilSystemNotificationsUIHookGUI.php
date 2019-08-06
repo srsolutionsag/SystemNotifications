@@ -98,7 +98,7 @@ class ilSystemNotificationsUIHookGUI extends ilUIHookPluginGUI {
 			global $DIC;
 			$tpl = $DIC->ui()->mainTemplate();
 			$tpl->addCss($this->pl->getDirectory() . '/templates/default/notifications.css');
-			$tpl->addJavaScript($this->pl->getDirectory() . '/templates/default/xnot.min.js');
+			$tpl->addJavaScript($this->pl->getDirectory() . '/js/dist/xnot.js');
 			self::setLoaded('const');
 		}
 
