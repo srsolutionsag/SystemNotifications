@@ -1,3 +1,6 @@
+#xnot_container {
+  padding-top: 16px;
+}
 #xnot_container .alert .xnot-show-more,
 #xnot_container .alert .xnot-show-less {
   display: none;
