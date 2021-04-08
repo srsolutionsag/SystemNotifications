@@ -142,6 +142,9 @@ class notMessage extends ActiveRecord
      */
     public function isVisibleForUser(ilObjUser $user)
     {
+        if ($user->hasToAcceptTermsOfService() && $this->isInterruptive()) {
+            return false;
+        }
         if (!$this->isLoggedIn($user) && $this->isInterruptive()) {
             return false;
         }
