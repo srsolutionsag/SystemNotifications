@@ -131,23 +131,32 @@ class notMessage extends ActiveRecord
         return ($hasEventStarted or $hasDisplayStarted) and ($hasEventEnded or $hasDisplayEnded);
     }
 
+    private function isLoggedIn(ilObjUser $user)
+    {
+        return (int) $user->getId() !== 0 && (int) $user->getId() !== 13;
+    }
+
     /**
-     * @param ilObjUser $ilObjUser
+     * @param ilObjUser $user
      * @return bool
      */
-    public function isVisibleForUser(ilObjUser $ilObjUser)
+    public function isVisibleForUser(ilObjUser $user)
     {
-        if ($ilObjUser->getId() == 0 && $this->isInterruptive()) {
+        if (!$this->isLoggedIn($user) && $this->isInterruptive()) {
             return false;
         }
+        if (!$this->isLoggedIn($user) && $this->getDismissable()) {
+            return false;
+        }
+
         if (!$this->isVisible()) {
 
             return false;
         }
-        if ($this->hasUserDismissed($ilObjUser)) {
+        if ($this->hasUserDismissed($user)) {
             return false;
         }
-        if (!$this->isVisibleRoleUserRoles($ilObjUser)) {
+        if (!$this->isVisibleRoleUserRoles($user)) {
             return false;
         }
 

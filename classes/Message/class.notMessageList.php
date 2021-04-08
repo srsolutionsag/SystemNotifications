@@ -53,12 +53,7 @@ class notMessageList extends ActiveRecordList
      */
     public function getActive()
     {
-        //		$this->reset();
-        //		$this->where(array( 'active' => 1 ));
-        //				$this->leftjoin(sysnotDismiss::TABLE_NAME, 'id', 'notification_id');
-        //						$this->debug();
-
-        return self::get();
+        return $this->get();
     }
 
     protected function reset()
