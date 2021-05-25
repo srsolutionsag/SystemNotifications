@@ -44,16 +44,16 @@ div.xnot-alert-container-interruptive div.xnot-alert {
   #xnot_container .alert span.xnot-body,
   #xnot_container .alert span.xnot-body p {
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     overflow: hidden;
     width: auto;
     display: block;
   }
   #xnot_container .xnot-content-hidden .xnot-show-more {
-    display: block;
+    /*display: block;*/
   }
   #xnot_container .xnot-content-shown .xnot-show-less {
-    display: block;
+    /*display: block;*/
   }
   #xnot_container .xnot-content-shown strong.xnot-title,
   #xnot_container .xnot-content-shown span.xnot-body,
